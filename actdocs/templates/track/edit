@@ -1,0 +1,48 @@
+[% WRAPPER ui title = loc("Create/Edit a track") %]
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      [% PROCESS error
+         msgs = {
+           ERR_TITLE  => loc("You must enter a title for the track"),
+        }
+      %]
+
+      <form class="form-horizontal" method="POST" action="[% global.request.r.uri %]">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="form-group">
+              <label class="col-sm-2" for="title">{{Title}}</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="title" value="[% title %]" maxlength="100" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-2" for="description">{{Description}}</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" name="description" rows="10">[% description | form_unescape %]</textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-footer text-right">
+            [% IF return_url %]
+              <input type="hidden" name="return_url" value="[% return_url %]" />
+            [% END %]
+            [% IF track_id %]
+              <input type="hidden" name="track_id" value="[% track_id %]" />
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <input type="checkbox" name="delete" />
+                  {{Delete this track}}
+                </div>
+              </div>
+            [% END %]
+            <input class="btn btn-lg btn-primary" type="submit" name="submit" value="{{Submit this track}}" />
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+[% END %]

@@ -1,0 +1,5 @@
+[% WRAPPER ui title = loc("Talk removed") %]
+  <div class="alert alert-success">
+   [% loc('The Talk <title> has been removed.', title) %]
+  </div>
+[% END %]

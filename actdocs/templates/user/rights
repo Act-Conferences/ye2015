@@ -1,0 +1,71 @@
+[% WRAPPER ui title = loc('User rights') %]
+  <form method="POST" action="[% global.request.r.uri %]">
+    <div class="panel panel-default">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>{{Name}}</th>
+            [% FOREACH r = right_list %]
+              <th>[% r %]</th>
+            [% END %]
+          </tr>
+        </thead>
+        <tbody>
+          [% FOREACH u = right %]
+            <tr>
+              <td>[% user_info(u.user) %]</td>
+              [% FOREACH r = right_list %]
+                <td><input type="checkbox" name="[% u.user.user_id %]-[% r %]" [% IF u.right.$r %]checked="checked" [% END %]/></td>
+              [% END %]
+            </tr>
+          [% END %]
+
+          <tr>
+            <td>
+              <select name="newuser">
+                <option value="" selected="selected" />
+                [% FOREACH u=users %]
+                  <option value="[% u.user_id %]">[[% u.login %]] [% user_info(u) %]</option>
+                [% END %]
+              </select>
+            </td>
+            [% FOREACH r = right_list %]
+              <td><input type="checkbox" name="new-[% r %]" /></td>
+            [% END %]
+          </tr>
+        </tbody>
+      </table>
+      <div class="panel-footer text-right">
+        <input class="btn btn-primary" type="submit" name="ok" value="{{Submit}}" />
+      </div>
+    </div>
+  </form>
+
+  <h3>
+   {{The recognised rights are:}}
+  </h3>
+
+  <ul>
+    <li>
+      <tt>staff</tt> - {{Organizer}}
+    </li>
+    <li>
+      <tt>users_admin</tt> - {{Organizer (users management)}}
+    </li>
+    <li>
+      <tt>talks_admin</tt> - {{Organizer (talks management)}}
+    </li>
+    <li>
+      <tt>wiki_admin</tt> - {{Organizer (wiki management)}}
+    </li>
+    <li>
+      <tt>news_admin</tt> - {{Organizer (news management)}}
+    </li>
+    <li>
+      <tt>treasurer</tt> - {{Treasurer (payment management)}}
+    </li>
+    <li>
+      <tt>admin</tt> - {{Administrator (rights management)}}
+    </li>
+  </ul>
+[% END %]

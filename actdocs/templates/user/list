@@ -1,0 +1,92 @@
+<p class="message">{{Committed users are listed in <b>bold</b> type}}</p>
+
+[% IF users.size %]
+  <table class="table table-striped table-mobile" id="user-list">
+    <thead>
+      <tr>
+       <th>{{Name}}</th>
+       <th>{{City}}</th>
+       <th>{{Country}}</th>
+       <th>{{Monger group}}</th>
+       [% IF global.request.user.is_users_admin %]
+         <th>{{Email}}</th>
+       [% END %]
+      </tr>
+    </thead>
+    <tbody>
+      [% FOREACH u=users %]
+        <tr>
+          <td>
+            <div class="row">
+              <div class="col-xs-4 visible-xs">
+                <b>{{Name}}:</b>
+              </div>
+              <div class="col-xs-8 col-sm-12">
+                [% "<strong>" IF u.committed %][% user_info(u) %][% "</strong>" IF u.committed %]
+                [% IF u.photo_name %]
+                  <img src="/images/photo.png" alt="photo" title="photo" width="12" height="12" />
+                [% END %]
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <div class="row">
+              <div class="col-xs-4 visible-xs">
+                <b>{{City}}:</b>
+              </div>
+              <div class="col-xs-8 col-sm-12">
+                [%- IF u.town %]
+                   [% u.town %]
+                [%- ELSE %]
+                   &nbsp;
+                [% END %]
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <div class="row">
+              <div class="col-xs-4 visible-xs">
+                <b>{{Country}}:</b>
+              </div>
+              <div class="col-xs-8 col-sm-12">
+                [% countries_iso.${u.country} %]
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <div class="row">
+              <div class="col-xs-4 visible-xs">
+                <b>{{Monger group}}:</b>
+              </div>
+              <div class="col-xs-8 col-sm-12">
+                [%- IF u.pm_group %]
+                  [% IF u.pm_group_url %]<a href="[% u.pm_group_url %]">[% END %]
+                  [%- u.pm_group -%]
+                  [%- IF u.pm_group_url %]</a>[% END %]
+                [% ELSE %]
+                  &nbsp;
+                [% END %]
+              </div>
+            </div>
+          </td>
+
+          [% IF global.request.user.is_users_admin %]
+            <td>
+              <div class="row">
+                <div class="col-xs-4 visible-xs">
+                  <b>{{Email}}:</b>
+                </div>
+                <div class="col-xs-8 col-sm-12">
+                  <a href="mailto:[% u.email %]">[% u.email %]</a>
+                </div>
+              </div>
+            </td>
+          [% END %]
+        </tr>
+      [% END %]
+    </tbody>
+  </table>
+[% END %]

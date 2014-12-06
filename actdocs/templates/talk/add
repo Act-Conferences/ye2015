@@ -1,0 +1,261 @@
+[% WRAPPER ui title = loc("Submit/Edit a talk") %]
+
+  [% PROCESS error
+     msgs = {
+       ERR_USER           => loc("You must specify a user"),
+       ERR_TITLE          => loc("You must enter a title for the talk"),
+       ERR_ABSTRACT       => loc("You must provide an abstract"),
+       ERR_DATE           => loc("The supplied date is invalid"),
+       ERR_TIME           => loc("The supplied time is invalid"),
+       ERR_DATERANGE      => loc("The date/time is out of range"),
+       ERR_DURATION       => loc("Please choose a duration"),
+       ERR_URL_ABSTRACT   => loc("Abstract URL is not a valid URL"),
+       ERR_URL_TALK       => loc("Talk URL is not a valid URL"),
+       ERR_ROOM           => loc("Incorrect room submitted"),
+       ERR_LEVEL          => loc("Please choose a target audience"),
+       ERR_LANG           => loc("Incorrect language"),
+    }
+  %]
+
+  <form method="POST" class="form-horizontal" role="form" action="[% global.request.r.uri %]">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        [% IF return_url %]
+          <input type="hidden" name="return_url" value="[% return_url %]" />
+        [% END %]
+
+        <div class="col-md-12">
+          [% IF talk_id %]
+            <div class="form-group">
+              <div class="col-xs-12 text-right">
+                <p>
+                  {{View}}
+                  <a href="[% make_uri_info('talk', talk_id) %]" >[% title %]</a>
+                </p>
+              </div>
+            </div>
+          [% END %]
+        </div>
+
+        <div class="col-md-5">
+          [% IF global.request.user.is_talks_admin %]
+            <div class="form-group">
+              <label for="user_id" class="col-sm-3 control-label">{{User}}</label>
+              <div class="col-sm-9">
+                <select class="form-control" name="user_id">
+                  [% uid = user_id ? user_id : global.request.user.user_id %]
+                  [% FOREACH u=users %]
+                    <option value="[% u.user_id %]"[% ' selected="selected"' IF u.user_id == uid %]>
+                      [% u.first_name %] [% u.last_name %]
+                    </option>
+                  [% END %]
+                </select>
+              </div>
+            </div>
+          [% END %]
+
+          <div class="form-group">
+            <label for="title" class="col-sm-3 control-label">{{Title}}</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="title" value="[% title %]" maxlength="100" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="status" class="col-sm-3 control-label">{{Status}}</label>
+            <div class="col-sm-9">
+              [% IF global.request.user.is_talks_admin %]
+                <input type="checkbox" name="accepted"[% ' checked' IF accepted %] />
+                {{accepted}}<br />
+                <input type="checkbox" name="confirmed"[% ' checked' IF confirmed %] />
+                {{confirmed}}<br />
+              [% ELSE %]
+                <div class="form-control-static">
+                [% IF confirmed %]
+                  <span class="label label-success">{{confirmed}}</span>
+                [% ELSIF accepted %]
+                  <span class="label label-info">{{Accepted}}</span> (not confirmed)
+                [% ELSE %]
+                  <span class="label label-warning">{{Pending}}</span>
+                [% END %]
+                </div>
+              [% END %]
+            </div>
+          </div>
+
+          <div class="form-group">
+            [% IF global.config.talks_languages %]
+              <label for="lang" class="col-sm-3 control-label">{{Language}}</label>
+              <div class="col-sm-9">
+                <select name="lang" class="form-control" size="1">
+                  <option value=""[% ' selected="selected"' UNLESS lang %] />
+                  [% FOREACH lg = global.config.talks_languages.keys.sort %]
+                    <option value="[% lg %]"[% ' selected="selected"' IF lang==lg %]>[% global.config.talks_languages.$lg %]</option>
+                  [% END %]
+                </select>
+              </div>
+            [% END %]
+          </div>
+
+          [% IF global.config.talks_levels %]
+            <div class="form-group">
+              <label for="level" class="col-sm-3 control-label">{{Target audience}}</label>
+              <div class="col-sm-9">
+                <select name="level" class="form-control">
+                  [% FOREACH levelname = global.config.talks_levels_names %]
+                    <option value="[% loop.count %]"[% ' selected="selected"' IF level == loop.count %]>[% levelname %]</option>
+                  [% END %]
+                </select>
+              </div>
+            </div>
+          [% END %]
+
+          <div class="form-group">
+            [% IF global.request.user.is_talks_admin %]
+              <label for="duration" class="col-sm-3 control-label">{{Duration}}</label>
+              <div class="controls form-inline col-sm-9">
+                <input name="duration" class="form-control" value="[% duration == 'lightning' ? '' : duration %]" size="3" />
+                <input type="checkbox" name="is_lightning"[% ' checked' IF duration=='lightning' %] />
+                {{Lightning talk}}
+              </div>
+              <div class="col-sm-offset-3 col-sm-9">
+                <p class="help-block">
+                  [% loc("Standard durations for <confname> are:", global.conference.name) %]
+                  <b>[% global.config.talks_durations.keys.nsort.join('</b>, <b>') %]</b> {{minutes}}
+                </p>
+              </div>
+            [% ELSE %]
+              <label for="duration" class="col-sm-3 control-label">{{Duration}}</label>
+              <div class="col-sm-9">
+                [% IF talk_id %]
+                  [% IF duration == 'lightning' %]
+                    {{Lightning talk}}
+                  [% ELSE %]
+                    [% duration %] {{minutes}}
+                  [% END %]
+                [% ELSE %]
+                  <select class="form-control" name="duration">
+                   <option value=""[% ' selected="selected"' UNLESS duration %] />
+                   <option value="lightning"[% ' selected="selected"' IF lightning %]>
+                      {{Lightning talk}}
+                   </option>
+                   [% FOREACH d = global.config.talks_durations.keys.nsort %]
+                     <option value="[% d %]"[% ' selected="selected"' IF d == duration %]>[% d %] {{minutes}}</option>
+                   [% END %]
+                  </select>
+                [% END %]
+              </div>
+            [% END %]
+          </div>
+
+          <div class="form-group">
+            <label for="tags" class="col-sm-3 control-label">{{Tags}}</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="tags" value="[% tags %]" maxlength="100" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="url_talk" class="col-sm-3 control-label">{{Talk URL}}</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="url_talk" value="[% url_talk %]" maxlength="256" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="url_abstract" class="col-sm-3 control-label">{{Abstract URL}}</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="url_abstract" value="[% url_abstract %]" maxlength="256" />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-7">
+          [% IF global.request.user.is_talks_admin %]
+            <div class="form-group">
+              <label for="date" class="col-sm-3 control-label">{{Date}}</label>
+              <div class="col-sm-9">
+                <select name="date" class="form-control">
+                  <option value=""[% ' selected="selected"' UNLESS datetime %] />
+                  [% FOREACH d=dates %]
+                    <option value="[% d.ymd %]"[% ' selected="selected"' IF datetime.ymd == d.ymd %]>[% d.ymd %]</option>
+                  [% END %]
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="time" class="col-sm-3 control-label">{{Time}}</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name="time" value="[% datetime.strftime('%H:%M') %]" size="5" maxlength="5" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="room" class="col-sm-3 control-label">{{Room}}</label>
+              <div class="col-sm-9">
+                <select name="room" class="form-control">
+                  <option value=""[% ' selected="selected"' UNLESS room %] />
+                  [% FOREACH r = rooms.keys.sort %]
+                    <option value="[% r %]"[% ' selected="selected"' IF room == r %]>[% rooms.$r %]</option>
+                  [% END %]
+                </select>
+              </div>
+            </div>
+          [% END %]
+
+          [% IF tracks.size != 0 %]
+            [% IF global.request.user.is_talks_admin %]
+              <div class="form-group">
+                <label for="track_id" class="col-sm-3 control-label">{{Track}}</label>
+                <div class="col-sm-9">
+                 <select name="track_id" class="form-control">
+                   <option value=""[% ' selected="selected"' UNLESS track_id %] />
+                   [% FOREACH t=tracks %]
+                     <option value="[% t.track_id %]"[% ' selected="selected"' IF t.track_id == track_id %]>[% t.title %]</option>
+                   [% END %]
+                 </select>
+                </div>
+              </div>
+            [% ELSE %]
+              <input type="hidden" name="track_id" value="[% track_id %]" />
+            [% END %]
+          [% END %]
+
+          <div class="form-group">
+            <label for="abstract" class="col-sm-3 control-label">{{Abstract}}<br />{{(plain text)}}</label>
+            <div class="col-sm-9">
+              <textarea class="form-control" name="abstract" rows="6">[% abstract | form_unescape %]</textarea>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="comment" class="col-sm-3 control-label">{{Comments}}</label>
+            <div class="col-sm-9">
+              <textarea class="form-control" name="comment" rows="6"></textarea>
+            </div>
+          </div>
+
+          <div class="col-sm-9 col-sm-offset-3">
+            <p class="help-block">
+              {{The comment field is used for communicating information about}}
+              {{If the proposed durations do not quite fit your talk, please}}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-footer text-right">
+        [% IF talk_id %]
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10 text-right">
+              <input type="checkbox" name="delete" />
+              {{Delete this talk}}
+            </div>
+          </div>
+        [% END %]
+        <input class="btn btn-lg btn-primary" type="submit" name="submit" value="{{Submit this talk}}" />
+      </div>
+    </div>
+  </form>
+[% END %]

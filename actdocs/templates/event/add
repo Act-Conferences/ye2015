@@ -1,0 +1,111 @@
+[% WRAPPER ui title = loc("Submit/Edit a non-talk event") %]
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      [% PROCESS error
+         msgs = {
+           ERR_TITLE          => loc("You must enter a title for the event"),
+           ERR_ABSTRACT       => loc("You must enter a short description for the event"),
+           ERR_DURATION       => loc("Please choose a duration"),
+           ERR_DATE           => loc("The supplied date is invalid"),
+           ERR_TIME           => loc("The supplied time is invalid"),
+           ERR_DATERANGE      => loc("The date/time is out of range"),
+           ERR_URL_ABSTRACT   => loc("Event URL is not a valid URL"),
+           ERR_ROOM           => loc("Incorrect room submitted"),
+        }
+      %]
+
+      <form class="form-horizontal" method="POST" action="[% global.request.r.uri %]">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            [% IF event_id %]
+              <div class="form-group">
+                <div class="col-xs-12 text-right">
+                  <p>
+                    {{View}}
+                    <a href="[% make_uri_info('event', event_id) %]" >[% title %]</a>
+                  </p>
+                </div>
+              </div>
+            [% END %]
+
+            <div class="form-group">
+              <label class="col-sm-2" for="title">{{Title}}</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="title" id="form-title" value="[% title %]" maxlength="100" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-2" for="date">{{Date}}</label>
+              <div class="col-sm-4">
+                <select class="form-control"name="date" id="form-date">
+                  <option value=""[% ' selected="selected"' UNLESS datetime %] />
+                  [% FOREACH d=dates %]
+                    <option value="[% d.ymd %]"[% ' selected="selected"' IF datetime.ymd == d.ymd %]>[% d.ymd %]</option>
+                  [% END %]
+                 </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-2" for="time">{{Time}}</label>
+              <div class="col-sm-4">
+               <input type="text" class="form-control" name="time" id="form-time" value="[% datetime.strftime('%H:%M') %]" size="5" maxlength="5" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-2" for="room">{{Room}}</label>
+              <div class="col-sm-4">
+                 <select class="form-control" name="room" id="form-room">
+                   <option value=""[% ' selected="selected"' UNLESS room %] />
+                   [% FOREACH r = rooms.keys.sort %]
+                     <option value="[% r %]"[% ' selected="selected"' IF room == r %]>[% rooms.$r %]</option>
+                   [% END %]
+                 </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-2" for="abstract">{{Abstract}} {{(plain text)}}</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" name="abstract" rows="10">[% abstract | form_unescape %]</textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-2" for="form-url-abstract">{{External URL}}</label>
+              <div class="col-sm-10">
+                <input class="form-control" type="text" name="url_abstract" id="form-url-abstract" value="[% url_abstract %]" maxlength="256" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-2" for="form-duration">{{Duration}}</label>
+              <div class="controls form-inline col-sm-10">
+                <input class="form-control" name="duration" id="form-duration" value="[% duration %]" size="4" />
+                {{minutes}}
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-footer text-right">
+            [% IF return_url %]
+              <input type="hidden" name="return_url" value="[% return_url %]" />
+            [% END %]
+            [% IF event_id %]
+              <input type="hidden" name="event_id" value="[% event_id %]" />
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <input type="checkbox" name="delete" />
+                  {{Delete this event}}
+                </div>
+              </div>
+            [% END %]
+            <input class="btn btn-lg btn-primary" type="submit" name="submit" value="{{Submit this event}}" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+[% END %]

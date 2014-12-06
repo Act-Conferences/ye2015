@@ -1,0 +1,5 @@
+[% WRAPPER ui title = loc("Event removed") %]
+  <div class="alert alert-success">
+   [% loc('The event has been removed.', title) %]
+  </div>
+[% END %]

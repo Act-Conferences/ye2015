@@ -1,37 +1,111 @@
-body {
-	background-color: white;
-	color: black;
-	font-family: sans-serif;
-	margin: 0pt auto;
+html,body {
+    height:100%;
+}
+body{
+    margin:0;
+}
+.input-link {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: inline;
+  background-color: transparent;
+  color: inherit;
+}
+#page {
+    width:100%;
+    height:100%;
+    display:table;
+    margin:0 auto;
+    font-size: 1.3em;
+}
+#page-body {
+    width:100%;
+    display:table-row;
+}
+#page-content {
+    padding: 40px 0;
+}
+#main-menu .jumbotron {
+    background-color: transparent;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+}
+#page-footer {
+    width:100%;
+    overflow:hidden; /*for FF on Windows 7*/
+    display:table-footer-group;
+}
+#page-footer .holder {
+    height:1%;
+    display:table-row;
+}
+#page-footer .navbar {
+    border-radius: 0;
+    margin-bottom: 0;
+    padding-top: 20px;
+    border-left: 0;
+    border-right: 0;
+}
+#page-footer .frame { display:table-cell;}
+/* FOR IE6/7 */
+/*
+#page-body {min-height:100%;}
+* html #page-body { height:100%;}
+#page-body .holder {padding-bottom:expression(document.getElementById("footer").offsetHeight + "px");}
+#page-footer {
+    position:relative;
+    margin-top:expression(- this.offsetHeight + "px");
+}
+*/
+
+@media(max-width:767px) {
+  .table-mobile thead { display: none }
+  .table-mobile tbody tr td { display: block !important }
+  .table-mobile tbody tr td:not(:first-child) { border: 0 }
+}
+.table .act-description label {
+  display: inline;
+}
+p.message {
+  padding: 50px 0;
 }
 
-#wrapper {
-	margin: 0pt auto;
-	width: 850px;
+/*~------------------------------------------------------------------*/
+/* Timetable colours                                                 */
+/*~------------------------------------------------------------------*/
+.table-schedule td.center {
+  text-align: center;
 }
-
-#menu {
-	float: left;
-	font-size: 90%;
-	width: 150px;
+.table-schedule td {
+  border: 0 !important;
 }
-
-#menu h2 {
-	font-size: 110%;
+.venue .alert {
+  background-color: #FFCC00;
 }
-
-#menu li {
-    margin-left: 1em;
-    list-style-type: none;
+.out .alert {
+  background-color: #EEEEEE;
 }
-
-#content {
-	float: right;
-	width: 700px;
+.r1 .alert {
+  background-color: #FFD3D3;
 }
-
-#footer {
-	clear: both;
-	font-size: 80%;
-	text-align: right;
+.r2 .alert {
+  background-color: #D3FFD3;
+}
+.r3 .alert {
+  background-color: #D3D3FF;
+}
+.r4 .alert {
+  background-color: #FFFFD3;
+}
+.r5 .alert {
+  background-color: #D3FFFF;
+}
+.mtbutton {
+  cursor:pointer;
+  vertical-align: middle;
+}
+.starcount {
+  font-size: small;
 }

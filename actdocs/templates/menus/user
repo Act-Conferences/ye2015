@@ -1,0 +1,42 @@
+<!-- user menu -->
+[% IF global.request.user %]
+  <li class="dropdown">
+    <a href="" class="dropdown-toggle" data-toggle="dropdown">
+      <span class="fa fa-user"></span>
+      <span class="hidden-sm hidden-md">[% global.request.user.login %]</span>
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+    [% UNLESS global.request.user.participation OR global.config.closed %]
+      [% WRAPPER menus/item %]
+        <a href="[% make_uri('register') %]">{{Register}}</a>
+      [% END %]
+    [% END %]
+    [% WRAPPER menus/item %]
+      <a href="[% make_uri('main') %]">{{Edit profile}}</a>
+    [% END %]
+    [% WRAPPER menus/item %]
+      <a href="[% make_uri_info('user', global.request.user.user_id) %]">{{View}}</a>
+    [% END %]
+    <li class="divider"></li>
+    [% WRAPPER menus/item %]
+      <a href="[% make_uri('logout') %]">{{Logout}}</a>
+    [% END %]
+    </ul>
+  </li>
+[% ELSE %]
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{Register}} <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+      [% WRAPPER menus/item %]
+        <a href="[% make_uri('main') %]">{{Log in}}</a>
+      [% END %]
+    [% UNLESS global.config.closed %]
+      <li class="divider"></li>
+      [% WRAPPER menus/item %]
+        <a href="[% make_uri('register') %]">{{New user}}</a>
+      [% END %]
+    [% END %]
+    </ul>
+  </li>
+[% END %]

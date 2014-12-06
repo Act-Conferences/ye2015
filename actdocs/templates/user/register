@@ -1,0 +1,22 @@
+[% WRAPPER ui title = loc('Registration') %]
+  [% USE date %]
+
+  <div class="text-center">
+    [% IF date.now > end_date %]
+      <div class="alert alert-danger">
+       {{Sorry, this conference is over.}}
+      </div>
+      [% ELSE %]
+        <h3>
+          [% loc('To register to the <name> conference', global.conference.name) %]
+        </h3>
+        <br /><br />
+        <form method="POST" action="[% global.request.r.uri %]">
+          <div class="visible-xs">
+            <input class="btn btn-lg btn-primary" type="submit" name="join" value="[% loc('Join').ucfirst %]" />
+          </div>
+          <input class="btn btn-lg btn-primary hidden-xs" type="submit" name="join" value="{{Join}} [% global.conference.name %]" />
+        </form>
+    [% END %]
+  </div>
+[% END %]

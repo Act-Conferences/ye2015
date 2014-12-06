@@ -1,0 +1,36 @@
+[% WRAPPER ui title = loc("Registration") %]
+
+<p>{{Please create the user below.}}</p>
+
+[% PROCESS error
+   msgs = {
+     ERR_IDENTIFIER_EXISTS => loc("Identifier is already in use. Please choose another.", login),
+     ERR_EMAIL_EXISTS      => loc("The address is already registered.", email),
+     ERR_IDENTIFIER        => loc("Your identifier must contain at least 3 characters"),
+     ERR_FIRST_NAME        => loc("You must enter your first name"),
+     ERR_LAST_NAME         => loc("You must enter your last name"),
+     ERR_EMAIL             => loc("You must enter your email"),
+     ERR_COUNTRY           => loc("You must enter a country from the list"),
+     ERR_EMAIL_SYNTAX      => loc("Your email address looks bogus."),
+     ERR_DUPLICATE_EXISTS  => loc("Accounts with similar information already exist."),
+     ERR_TSHIRT            => loc("A valid T-shirt size is required."),
+  }
+%]
+
+[% IF duplicates.size %]
+<form method="POST" action="[% global.request.r.uri %]">
+<p>
+ [% FOREACH u IN duplicates %]
+  <input type="radio" name="user_id" value="[% u.user_id %]" />
+  [ [% u.login %] ] [% user_info(u) %] &lt;[% u.email %]&gt; ([% u.country_name %])
+    <br />
+ [% END %]
+</p>
+<p>{{Use the links above to check if any of those users is the one you want to}}</p>
+<input type="submit" name="register" value="{{Register}}" />
+</form>
+[% END %]
+
+[% PROCESS 'user/forms/new_user' %]
+
+[% END %]

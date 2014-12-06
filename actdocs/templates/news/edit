@@ -1,0 +1,104 @@
+[% WRAPPER ui title = loc("Edit a news item") %]
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      [%
+        msgs = {
+           ERR_TITLE          => loc("You must enter a title"),
+           ERR_TEXT           => loc("You must enter some text"),
+           ERR_DATE           => loc("The supplied date is invalid"),
+           ERR_TIME           => loc("The supplied time is invalid"),
+        };
+        FOREACH err = errors;
+          WRAPPER error_ui;
+            msgs.${err.list.0};
+            IF err.list.1;
+              ' ('; global.config.languages.${err.list.1}.name; ')';
+            END;
+          END;
+        END;
+      %]
+
+
+      <form class="form-horizontal" method="POST" action="[% global.request.r.uri %]">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <ul class="nav nav-tabs" role="tablist">
+              [% FOREACH lang = global.config.languages.keys %]
+                <li [% IF loop.first %]class="active"[% END %]>
+                  <a href="#tab-[% lang %]" role="tab" data-toggle="tab">
+                    [% global.config.languages.$lang.name %]
+                  </a>
+                </li>
+              [% END %]
+            </ul>
+            <br />
+            <div class="form-group">
+              <label class="col-xs-2" for="date">{{Date}}</label>
+              <div class="col-xs-4">
+                <input type="text" class="form-control" name="date" id="form-time" value="[% date %]" maxlength="10" />
+              </div>
+              <label class="col-xs-2" for="time">{{Time}}</label>
+              <div class="col-xs-4">
+                <input type="text" class="form-control" name="time" id="form-time" value="[% time %]" maxlength="5" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-xs-2" for="pubished">{{Published}}</label>
+              <div class="col-xs-10">
+                <input type="radio" name="published" value="1" [% "checked" IF published %] /> {{Yes}}
+                <input type="radio" name="published" value="0" [% "checked" UNLESS published %] /> {{No}}
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="tab-content">
+              [% FOREACH lang = global.config.languages.keys %]
+                <div id="tab-[% lang %]" class="tab-pane[% IF loop.first %] active[% END %]">
+                  <div class="form-group">
+                    <label class="col-md-2" for="title_[% lang %]">{{Title}}</label>
+                    <div class="col-md-10">
+                      <input type="text" class="form-control" name="title_[% lang %]" id="form-title" value="[% items.$lang.title %]" maxlength="100" />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-2" for="text_[% lang %]">{{Text}}</label>
+                    <div class="col-md-10">
+                      <textarea class="form-control" name="text_[% lang %]" rows="10">[% items.$lang.text | form_unescape %]</textarea>
+                      <p class="help-bloc">{{Use HTML to format text. Text between newlines will be turned into paragraphs}}</span>
+                    </div>
+                  </div>
+                </div>
+              [% END %]
+            </div>
+          </div>
+
+          <div class="panel-footer text-right">
+            [% IF news_id %]
+              <input type="hidden" name="news_id" value="[% news_id %]" />
+              <div class="form-group">
+                <input type="checkbox" name="delete" id="form-delete" />
+                {{Delete this item}}
+              </div>
+            [% END %]
+            <input class="btn btn-default btn-lg" type="submit" name="preview" value="{{Preview}}" />
+            <input class="btn btn-primary btn-lg" type="submit" name="save" value="{{Save}}" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+      [% IF preview;
+         FOREACH lang = global.config.languages.keys;
+           IF global.config.languages.keys.size > 1 %]
+             <h2>[% global.config.languages.$lang.name %]</h2>
+           [% END %]
+           <div class="newsbox">
+             [% preview.$lang %]
+           </div>
+         [% END;
+      END %]
+
+[% END %]

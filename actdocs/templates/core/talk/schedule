@@ -1,0 +1,144 @@
+[% INCLUDE js/mytalks.js %]
+
+[% UNLESS ( global.request.user.is_talks_admin
+         or global.request.user.is_staff
+         or global.config.talks_show_schedule )
+      AND (table.keys.size OR todo.size)
+%]
+  <div class="alert alert-danger">{{The schedule is not ready to be seen.}}</div>
+[% ELSE %]
+  [% IF todo.size %]
+    <div class="panel panel-warning">
+      <div class="panel-heading">
+       {{The time and place of the following talks haven't been decided yet.}}
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>{{Speaker}}</th>
+            <th>{{Talk title}}</th>
+            [% IF global.config.talks_languages %]<th>{{Language}}</th>[% END %]
+            <th>{{Duration}}</th>
+          </tr>
+        </thead>
+
+        <tbody>
+         [% FOREACH t IN todo %]
+           <tr>
+            <td>
+             [% user_info(t.user) %]
+            </td>
+
+            <td>
+              [% IF t.type == 'Act::Event' %]
+                [% event_link(t) %]
+                [% event_modify_link(t) %]
+              [% ELSE %]
+                [% talk_confirmed_link(t) %]
+                [% talk_modify_link(t) %]
+              [% END %]
+            </td>
+
+            [% IF global.config.talks_languages %]
+              <td>[% global.config.talks_languages.${t.lang} %]</td>
+            [% END %]
+
+            <td>
+              [% t.duration %] {{minutes}}
+            </td>
+           </tr>
+         [% END %]
+        </tbody>
+      </table>
+    </div>
+  [% END %]
+
+
+  [% IF table.keys.size %]
+    <div class="panel panel-default">
+      [%-# tabs
+        day = global.request.args.day;
+        UNLESS day AND table.$day.size;          # no valid day specified
+          USE date;                              # default to today
+          day = date.format(date.now, "%F");
+          UNLESS table.$day.size;                # if not valid default to first day
+            day = global.config.talks_schedule_default || table.keys.sort.0;
+          END;
+        END;
+      %]
+      [% IF table.keys.size > 1 %]
+        <div class="panel-heading">
+          <ul class="nav nav-pills" role="tablist">
+            [% FOREACH d IN table.keys.sort %]
+              [% date = date_format(d.replace('$', ' 00:00:00'), "%A") %]
+              [% IF day == d %]
+                <li class="active"><a href="">[% date_format(d.replace('$', ' 00:00:00' ), 'date_full') | ucfirst %]</a></li>
+              [% ELSE %]
+                <li><a href="[% global.request.r.uri %]?day=[% d %]">[% date %]</a></li>
+              [% END %]
+            [% END %]
+          </ul>
+        </div>
+      [% END %]
+
+      [%-# schedule %]
+      <form method="POST" action="[% make_uri('updatemytalks') %]" />
+        <div class="panel-body">
+          [% d = day %]
+          <table class="table table-schedule">
+            <thead>
+              <tr class="header">
+                <th>
+                  {{Time}}
+                </th>
+                [% FOREACH r IN room.keys.sort %]
+                  [% IF width.$r.$d %]
+                    <th colspan="[% width.$r.$d %]">[% r == 'sidetrack' ? loc('room_sidetrack') : global.config.rooms.$r %]</th>
+                  [% END %]
+                [% END %]
+              </tr>
+            </thead>
+
+            <tbody>
+             [% FOREACH row IN table.$d %]
+             <tr class="header">
+              [% FOREACH col IN row %]
+               [% IF loop.first %]
+                 <td class="header">[% date_format(col, 'time').replace(' ', '&nbsp;') %]</td>
+               [% ELSE %]
+                 <td valign="top" [% IF col.height AND col.height > 1 %]rowspan="[% col.height %]"[% END %] [% IF col.room %]class="[% col.room %]"[% IF col.room.match('^(?:out|venue)$') %] colspan="[% maxwidth.$d %]"[% END %][% END %]>
+                   <div class="alert">
+                     [% timeslot(col) %]
+                     <span id="starcount-[% col.id %]" style="white-space:nowrap">
+                       [% IF col.stars %]
+                         <span class="starcount">[% col.stars %]</span>
+                         <img style="vertical-align:middle" src="/images/picked.gif" />
+                       [% END %]
+                     </span>
+                   </div>
+                 </td>
+               [% END %]
+              [% END %]
+             </tr>
+             [% END %]
+            </tbody>
+          </table>
+        </div>
+
+
+        <div class="panel-footer">
+          <a class="btn btn-default btn-lg" href="[% ical || make_uri('timetable.ics') %]">{{iCal export}}</a>
+          [% IF global.request.user.has_registered %]
+            <input type="hidden" name="day" value="[% day %]" />
+            <input class="btn btn-lg btn-primary" type="submit" class="mytalks_submit" value="{{Submit}}" />
+          [% END %]
+        </div>
+      </form>
+    </div>
+
+    <p>
+    {{Talks in bold type have been confirmed by their respective speakers.}}
+    </p>
+  [% END %]
+[% END %]

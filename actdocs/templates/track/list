@@ -1,0 +1,24 @@
+[% WRAPPER ui title = loc("Tracks") %]
+  <div class="panel panel-default">
+    [% IF tracks.size == 0 %]
+      <div class="panel-body">
+        <div class="alert alert-warning">{{No track}}</div>
+      </div>
+    [% ELSE %]
+      <table class="table table-bordered">
+      [% FOREACH tr = tracks %]
+      <tr><td><a href="[% make_uri('trackedit', 'track_id', tr.track_id) %]">[% tr.title %]</a></td>
+      <td>                          [% loc('n talks',     tr.talks.total)     %]
+       [%- IF tr.talks.total %],    [% loc('n accepted',  tr.talks.accepted)  %]
+       [%- IF tr.talks.accepted %], [% loc('n confirmed', tr.talks.confirmed) %]
+       [%- END; END %]
+      </td>
+      </tr>
+      [% END %]
+      </table>
+    [% END %]
+    <div class="panel-footer text-right">
+      <a class="btn btn-primary btn-lg" href="[% make_uri('trackedit') %]">{{Add a new track}}</a>
+    </div>
+  </div>
+[% END %]

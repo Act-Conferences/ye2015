@@ -1,0 +1,62 @@
+<form method="POST" action="[% global.request.r.uri %]">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="login">{{Login}}</label>
+          <input type="text" class="form-control" name="login" value="[% login %]" maxlength="60" />
+        </div>
+
+        <div class="form-group">
+          <label for="first_name">{{First Name}}</label>
+          <input type="text" class="form-control" name="first_name" value="[% first_name %]" maxlength="256" />
+        </div>
+
+        <div class="form-group">
+          <label for="last_name">{{Last Name}}</label>
+          <input type="text" class="form-control" name="last_name" value="[% last_name %]" maxlength="256" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="email">{{Email}}</label>
+          <input type="email" class="form-control" name="email" value="[% email %]" maxlength="256" />
+        </div>
+
+        <div class="form-group">
+          <label for="country">{{Country}}</label>
+          <select name="country" class="form-control">
+            [% country = global.config.general_default_country UNLESS country %]
+            [% IF topten.size %]
+              [% FOREACH c = topten %]
+                <option value="[% c.iso %]"[% ' selected="selected"' IF country == c.iso %]>[% c.name %]</option>
+                [% IF country == c.iso; country = ''; END %]
+              [% END %]
+              <option value="" disabled="disabled">------------------------------</option>
+            [% END %]
+            [% FOREACH c = countries %]
+              <option value="[% c.iso %]"[% ' selected="selected"' IF country == c.iso %]>[% c.name %]</option>
+            [% END %]
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="tshirt">{{T-Shirt}}</label>
+          <select name="tshirt" class="form-control">
+            [% FOREACH t = ['', 'XS', 'XS (W)', 'S', 'S (W)', 'M', 'M (W)',
+                            'L', 'L (W)', 'XL', 'XL (W)', 'XLT', 'XXL',
+                            'XXL (W)', 'XXLT', 'XXXL', '4XL', '5XL', '6XL'  ] %]
+              <option value="[% t %]"[% ' selected="selected"' IF t == tshirt %]>[% t %]</option>
+            [% END %]
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-footer text-right">
+      <input type="submit" name="join" class="btn btn-primary btn-lg" value="{{Join!}}" />
+    </div>
+  </div>
+
+  <input type="hidden" name="ignore_duplicates" value="[% ignore_duplicates %]" />
+</form>

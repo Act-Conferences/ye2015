@@ -1,0 +1,52 @@
+[% WRAPPER ui title = loc("iCal Import") %]
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      <form method="POST" enctype="multipart/form-data">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+           {{Upload an iCal file}}
+          </div>
+          <div class="panel-body">
+            <input type="file" name="ics" size="40" /><br />
+          </div>
+          <div class="panel-footer">
+            <input class="btn btn-primary btn-lg" type="submit" name="update" value="{{Import}}" />
+          </div>
+        </div>
+      </form>
+
+      [% IF timeslots %]
+        <div class="panel panel-warning">
+          <div class="panel-heading">
+           {{The following talks have been updated:}}
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>{{title}}</th>
+                <th>{{Old time}}</th>
+                <th>{{New time}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              [% FOREACH t=timeslots %]
+                <tr>
+                <td>[% IF t.type == 'Act::Event' %]
+                     [% event_link(t) %]
+                     [% event_modify_link(t) %]
+                  [% ELSE %]
+                     [% talk_link(t) %]
+                     [% talk_modify_link(t) %]
+                  [% END %]
+                </td>
+                <td>[% IF t.dt1; date_format(t.dt1,'datetime_short'); ELSE; '&nbsp;'; END %]</td>
+                <td>[% date_format(t.dt2,'datetime_short') %]</td>
+              </tr>
+              [% END %]
+            </tbody>
+          </table>
+        </div>
+      [% END %]
+    </div>
+  </div>
+[% END %]

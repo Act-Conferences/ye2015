@@ -1,0 +1,33 @@
+[% WRAPPER ui title = loc("Confirm Attendance") %]
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+
+    [% PROCESS error
+       msgs = {
+         ERR_MISSING_ORDER_ID  => loc("You must enter an order ID."),
+         ERR_UNKNOWN_ORDER_ID  => loc("Unknown order ID."),
+         ERR_NOT_REGISTERED    => loc("User is not registered."),
+      }
+    %]
+    [% IF user %]
+     <div class="alert alert-success">[% loc("Attendance confirmed for <user>", user_info(user)) %]</div>
+    [% END %]
+
+    <form method="POST" action="[% global.request.r.uri %]">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="col-xs-4 col-sm-3">
+            <label for="order_id">Order ID: </label>
+          </div>
+          <div class="col-xs-8 col-sm-9">
+            <input type="text" class="form-control" name="order_id" value="[% order_id %]" />
+          </div>
+        </div>
+        <div class="panel-footer text-right">
+          <input type="submit" name="ok" class="btn btn-primary" value="OK" />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+[% END %]

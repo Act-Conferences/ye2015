@@ -1,0 +1,134 @@
+[%  MACRO talk_link(talk)
+    BLOCK;
+        %]<a href="[% make_uri_info( 'talk', talk.talk_id ) %]">
+            [%- "<b>" IF talk.accepted %]&lrm;[% talk.title %]&lrm;[% "</b>" IF talk.accepted %]</a>
+[%- END;
+
+    MACRO talk_confirmed_link(talk)
+    BLOCK;
+        %]<a href="[% make_uri_info( 'talk', talk.talk_id ) %]">
+            [%- "<b>" IF talk.confirmed %]&lrm;[% talk.title %]&lrm;[% "</b>" IF talk.confirmed %]</a>
+[%- END;
+
+    MACRO talk_modify_link(talk)
+    BLOCK;
+        IF global.request.user.is_talks_admin
+            || ( (global.config.talks_submissions_open OR global.config.talks_edition_open)
+                 AND global.request.user.user_id == talk.user_id
+               )
+            %](<a href="[% make_uri( 'edittalk', 'talk_id', talk.talk_id ) %]">{{edit}}</a>)
+[%-     END;
+    END;
+
+    MACRO event_link(event)
+    BLOCK;
+        %]<a href="[% make_uri_info('event', event.event_id) %]">&lrm;[% event.title %]&lrm;</a>
+[%- END;
+
+    MACRO event_modify_link(event)
+    BLOCK;
+        IF global.request.user.is_talks_admin
+            %](<a href="[% make_uri('editevent', 'event_id', event.event_id ) %]">{{edit}}</a>)
+[%-     END;
+    END;
+   
+    MACRO user_info(user)
+    BLOCK;
+        %]<a href="[% make_uri_info('user', user.user_id) %]">[% user_info_base(user) %]</a>
+[%- END;
+
+    MACRO user_info_base(user)
+    BLOCK;
+        IF user.pseudonymous;
+            user.nick_name;
+        ELSE;
+            "${user.first_name} ${user.last_name}";
+            " (&lrm;${user.nick_name}&lrm;)" IF user.nick_name;
+        END;
+    END;
+
+    MACRO timeslot(t)
+    BLOCK;
+        IF t.type == 'Act::Talk';
+            IF global.request.user.has_registered %]
+                <input type="checkbox"
+                       name="mt-[% t.talk_id %]"
+                       value="[% t.talk_id %]"
+                       [% IF global.request.user.is_my_talk(t.talk_id) %]
+                         title = "{{remove from personal schedule}}"
+                         checked = "checked"
+                       [% ELSE %]
+                         title = "{{add to personal schedule}}"
+                       [% END %]
+                />
+            [% END;
+            user_info(t.user); ' - '; talk_confirmed_link(t);
+            ' ('; t.duration; '&nbsp;'; loc('min');
+            IF global.config.talks_languages;
+                ', '; global.config.talks_languages.${t.lang};
+            END;
+            ')';
+            IF t.track_id %] [<a href="[% make_uri('talks') %]#[% t.track_id %]">[%
+                          t.track.title.split('\W').0 %]</a>][% END;
+            ' '; talk_modify_link(t);
+        ELSIF t.type == 'Act::Event';
+            event_link(t); ' ('; t.duration; '&nbsp;'; loc('min'); ')';
+            ' '; event_modify_link(t);
+        ELSE;
+            t;
+        END;
+    END;
+
+    MACRO showtags(tags, action, hidden)
+    BLOCK;
+        IF tags AND tags.size;
+            FOREACH tag = tags
+                %]<a class="label label-default" href="[% make_uri_info(action, 'tag') %]/[% tag | uri %]">[% tag %]</a> [%
+            END;
+        END;
+    END;
+
+    MACRO addtags(tags, action, hidden)
+    BLOCK;
+        IF global.request.user; %]
+            <form class="form-inline" method="POST" action="[% global.request.r.uri %]">
+                [%- FOREACH h = hidden %]<input type="hidden" name="[% h.0 %]" value="[% h.1 %]" />[% END %]
+                <div class="form-group">
+                    <label class="control-label">{{add new tags:}}</label>
+                    <input type="text" class="form-control" name="newtags" value="" length="12" maxlength="64" />
+                    <input type="submit" class="btn btn-primary" name="ok" value="{{Submit}}" />
+                </div>
+            </form>
+[%      END;
+    END;
+
+    MACRO expand_talk(c)
+    BLOCK;
+        user_info(c.user); " - ";
+        talk_link(c.talk);
+    END;
+
+    MACRO expand_user(c)
+    BLOCK;
+        user_info(c.user);
+    END;
+
+    MACRO expand_news(c)
+    BLOCK;
+        %]<a href="[% make_uri_info('news', c.news.news_id) %]">[% c.news.title %]</a>
+[%      END;
+
+    MACRO expand( chunks )
+    BLOCK;
+        FOREACH c = chunks;
+            IF c.text;
+                c.text;
+            ELSIF c.talk;
+                user_info(c.user); " - ";
+                talk_link(c.talk);
+            ELSIF c.user;
+                user_info(c.user);
+            END;
+        END;
+    END;
+-%]

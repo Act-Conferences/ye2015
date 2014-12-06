@@ -1,0 +1,61 @@
+[%- MACRO datetime(t) IF t.datetime; date_format(t.datetime, 'datetime_full'); ELSE %]{{Not scheduled yet.}}[% END %]
+[%- SWITCH op %]
+[%- CASE 'insert' %]{{Talk inserted}}
+[%- CASE 'update' %]{{Talk updated}}
+[%- END -%]
+: [% talk.title %]
+[% global.request.base_url %][% make_uri_info('talk', talk.talk_id ) %]
+{{Submitted by:}} [% global.request.user.first_name %] [% global.request.user.last_name %]
+
+[%- IF diff OR adiff %]
+{{The following fields have been updated:}}
+[% IF diff;
+   # field name to i18n id mapping
+   fields = {
+     title          => "Title"
+     url_abstract   => "Abstract URL"
+     url_talk       => "Talk URL"
+     comment        => "Comments"
+     duration       => "Duration"
+     is_lightning   => "Lightning talk"
+     accepted       => "accepted"
+     confirmed      => "confirmed"
+     datetime       => "Date",
+     room           => "Room"
+     track          => "Track"
+     audience       => "Target audience"
+   };
+   FOREACH d=diff %]
+-[% loc(fields.$d) %]: [% IF d == 'datetime'; datetime(tbefore); ELSE; tbefore.$d; END %]
++[% loc(fields.$d) %]: [% IF d == 'datetime'; datetime(talk); ELSE; talk.$d; END %]
+[% END; END; IF adiff %]
+{{Abstract:}}
+[% adiff %]
+[% END; END %]
+
+{{By:}} [% user.first_name %] [% user.last_name %]
+[% IF talk.lightning -%]
+{{Lightning talk}}
+[% ELSE -%]
+{{Date:}} [% datetime(talk) %]
+{{Duration:}} [% talk.duration %] {{minutes}}
+[%- END %]
+[% IF talk.track -%]
+{{Track}}: [% talk.track %]
+[% END -%]
+[% IF talk.audience -%]
+{{Target audience}}: [% talk.audience %]
+[% END -%]
+
+[% IF talk.url_abstract -%]
+   {{Abstract:}} [% talk.url_abstract %]
+[% END -%]
+[% IF talk.url_talk -%]
+   {{Talk:}} [% talk.url_talk %]
+[% END -%]
+
+[% talk.abstract %]
+
+
+{{Comments:}}
+[% talk.comment %]

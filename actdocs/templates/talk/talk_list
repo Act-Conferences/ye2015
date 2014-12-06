@@ -1,0 +1,75 @@
+[% RETURN UNLESS talks.size %]
+[% INCLUDE js/mytalks.js %]
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>{{Speaker}}</th>
+      <th>{{Talk title}}</th>
+      <th>{{Duration}}</th>
+
+      [% IF global.config.talks_languages %]
+        <th>{{Language}}</th>
+      [% END %]
+
+      [% IF global.request.user.is_talks_admin OR global.config.talks_show_schedule %]
+        <th>{{Date}}</th>
+      [% END %]
+
+      [% IF global.request.user.is_talks_admin %]
+        <th>{{Accepted}}</th>
+      [% END %]
+    </tr>
+  </thead>
+  <tbody>
+    [% FOREACH t = talks %]
+      <tr>
+        <td>
+            [% user_info(t.user) %]
+        </td>
+        <td>
+          [% IF global.request.user.has_registered %]
+            <input type="checkbox"
+                   name="mt-[% t.talk_id %]"
+                   value="[% t.talk_id %]"
+                   [% IF global.request.user.is_my_talk(t.talk_id) %]
+                     title = "{{remove from personal schedule}}"
+                     checked = "checked"
+                   [% ELSE %]
+                     title = "{{add to personal schedule}}"
+                   [% END %]
+            />
+          [% END %]
+
+          [% talk_link(t) %]
+          [% talk_modify_link(t) %]
+          [% IF t.url_abstract || t.url_talk %]<br />[[% END %]
+          [% IF t.url_abstract %]
+          <a href="[% t.url_abstract %]">{{abstract (link)}}</a>
+          [% END %]
+          [% IF t.url_talk %]
+            [% IF t.url_abstract %]-[% END %]
+          <a href="[% t.url_talk %]">{{talk (link)}}</a>
+          [% END %]
+            [% IF t.url_abstract || t.url_talk %]][% END %]
+        </td>
+        <td nowrap="nowrap">[% IF t.lightning %]
+              {{lightning}}
+            [% ELSE %]
+             [% t.duration %] {{minutes}}
+            [% END %]
+        </td>
+        [% IF global.config.talks_languages %]
+        <td>[% global.config.talks_languages.${t.lang} %]</td>
+        [% END %]
+        [% IF global.request.user.is_talks_admin OR global.config.talks_show_schedule %]
+        <td align="center" nowrap="nowrap">[% IF t.datetime; date_format(t.datetime, 'datetime_short'); ELSE; '&nbsp;'; END %]</td>
+        [% END %]
+        [% IF global.request.user.is_talks_admin %]
+        <td align="center">
+        <input type="checkbox" name="[% t.talk_id %]"[% ' checked' IF t.accepted %] />
+        </td>
+        [% END %]
+      </tr>
+    [% END %]
+</table>

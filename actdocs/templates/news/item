@@ -1,0 +1,5 @@
+<h2><a href="#">[% title %]</a></h2>
+<h3>[% date_format(datetime, 'datetime_short') %] {{by}} [% user_info(global.request.user) %]</h3>
+<p>
+   [% content %]
+</p>

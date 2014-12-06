@@ -1,0 +1,71 @@
+[% WRAPPER ui title = loc('Wiki - <node>', node) %]
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <ul class="nav nav-pills" role="tablist">
+        <li><a href="[% make_uri('wiki') %]">{{Home}}</a></li>
+
+        [% IF version %]
+           [% IF global.request.user.is_wiki_admin %]
+            <li><a href="[% make_uri('wikiedit', 'action', 'revert', 'node', node, 'version', version) %]">{{Revert to this version}}</a></li>
+           [% END %]
+        [% ELSE %]
+          <li><a href="[% make_uri('wikiedit', 'action', 'edit', 'node', node) %]">{{Edit this page}}</a></li>
+        [% END %]
+
+        [% IF alltags.size %]
+          <li><a href="[% make_uri('wiki', 'action', 'tags') %]">{{Tags}}</a></li>
+        [% END %]
+
+        <li><a href="[% make_uri('wiki', 'action', 'recent') %]">{{Recent changes}}</a></li>
+
+        [% IF data.version %]
+          <li><a href="[% make_uri('wiki', 'action', 'history', 'node', node) %]">{{History}}</a></li>
+        [% END %]
+      </ul>
+    </div>
+
+    <div class="panel-body">
+      [% content %]
+    </div>
+
+    <div class="panel-footer">
+      <p>
+        [% UNLESS version OR NOT data.last_modified %]
+          <form class="form-inline" method="POST" action="[% global.request.r.uri %]">
+            <b>{{Tags:}}</b>
+            [% showtags(tags, 'wiki', [ [ 'node', node ] ] ) %]
+            <input type="hidden" name="node" value=[% node %] />
+            <div class="input-group">
+              <input type="text" class="form-control" name="newtags" value="" length="12" maxlength="64" />
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-default" id="ok" name="ok" value="{{Add}}">
+                  <i class="fa fa-plus"></i>
+                </button>
+              </span>
+            </div>
+          </form>
+          <hr />
+        [% END %]
+      </p>
+
+      <p>
+        [% IF version OR data.last_modified %]
+          <b>
+            [% IF version %]
+              {{version}} [% version %]
+              {{saved on}}:
+            [% ELSE %]
+              {{Last modified:}}
+            [% END %]
+          </b>
+
+          [% date_format(data.last_modified, 'datetime_short') %]
+          {{by}}
+          [% user_info( author ) %]
+        [% ELSE %]
+          {{new page}}
+        [% END %]
+      </p>
+    </div>
+  </div>
+[% END %]

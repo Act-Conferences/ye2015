@@ -1,0 +1,2 @@
+[% loc('In order to complete your operation', global.conference.name) %]
+[% link %]

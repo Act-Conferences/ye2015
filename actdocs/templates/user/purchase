@@ -1,0 +1,160 @@
+[% WRAPPER ui title = loc("Online payment") %]
+  <script type="text/javascript">
+    $( document ).ready(function() {
+        var amounts = [% amounts %];
+        $(function() {
+            get_radios = function(product) { return $(":radio[name=price-" + product +"]") };
+            compute_total = function() { 
+                var total = 0;
+                $("[type='checkbox']:checked").each(function() {
+                    var product = $(this).val();
+                    if (amounts[product]) {
+                        if (amounts[product].single) {
+                            total += parseInt(amounts[product][1]);
+                        }
+                        else {
+                            var radios = get_radios(product);
+                            get_radios(product).filter(":checked").each(function() {
+                                var price_id = $(this).val();
+                                if (amounts[product][price_id])
+                                    total += parseInt(amounts[product][price_id]);
+                            });
+                        }
+                    }
+                });
+                var donation = $("#form-donation").val();
+                if (donation) {
+                    donation = parseInt(donation);
+                    if (donation > 0) total += donation;
+                }
+                $("#totalamount").text(total);
+            };
+            $(":checkbox").each(function() {
+                var cb = $(this);
+                var radios = get_radios(cb.val());
+                // checking a price: check corresponding product checkbox
+                radios.click(function() {
+                        cb.prop('checked',true);
+                        compute_total();
+                       });
+                // checking a product: check 1st price
+                // unchecking a product: uncheck all its prices
+                cb.click(function() {
+                    if (cb.prop('checked'))
+                        radios.filter(':first').prop('checked',true);
+                    else
+                        radios.prop('checked',false)
+                    compute_total();
+                });
+            });
+            $("#form-donation").change(compute_total);
+            compute_total();
+            $("#total").prop('style', 'visibility: visible');
+        });
+    });
+  </script>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <form method="POST" action="[% global.request.r.uri %]">
+        <div class="panel panel-default">
+          <table class="table">
+            [% FOREACH p IN productlist %]
+              [% NEXT IF p == 'registration' AND global.request.user.has_paid %]
+
+              <tr class="act-product">
+                <td class="act-description">
+                  <div class="col-xs-12">
+                    <input type="checkbox" value="[% p %]" id="product-[% p %]" name="product-[% p %]"[% ' checked="checked"' IF products.$p.checked %] />
+                    <label for="product-[% p %]">[% products.$p.name %]</label>
+                  </div>
+                </td>
+                <td class="act-amount col-xs-3 text-right">
+                  [% IF products.$p.prices.size == 1 %] [% products.$p.prices.0.amount %] [% END %]
+                </td>
+                <td class="act-currency">
+                  [% IF products.$p.prices.size == 1 %] [% currency %] [% END %]
+                </td>
+              </tr>
+
+              [% IF products.$p.prices.size != 1 %]
+                [% ispromo = 0 %]
+                [% FOREACH i IN products.$p.prices %]
+                  [% IF i.promocode; ispromo = 1 %]
+                    <tr class="act-price">
+                      <td class="act-description">
+                        <div class="col-xs-10 col-xs-offset-2 col-md-11 col-md-offset-1">
+                          <span class="act-desciption">
+                            <label for="promo-[% p %]">{{Promotion code}}</label></td>
+                          </span>
+                        </div>
+                      </td>
+                      <td class="act-amount"><input class="form-control" type="text" id="promo-[% p %]" name="promo-[% p %]" value="[% promo.$p %]" /></td>
+                      <td></td>
+                    </tr>
+
+                  [% ELSE %]
+                    <tr class="act-price">
+                      <td class="act-description">
+                        <div class="col-xs-10 col-xs-offset-2 col-md-11 col-md-offset-1">
+                          <span class="act-desciption">
+                            <input type="radio" id="price-[% p %]-[% i.price_id %]" name="price-[% p %]" value="[% i.price_id %]"[% ' checked="checked"' IF i.checked %] />
+                            <label for="price-[% p %]-[% i.price_id %]"> [% i.name %]</label>
+                          </span>
+                        </div>
+                      </td>
+                      <td class="act-amount col-xs-3 text-right">
+                        [% i.amount %]
+                      </td>
+                      <td class="act-currency">
+                        [% currency %]
+                      </td>
+                    </tr>
+                  [% END %]
+                [% END %]
+              [% END %]
+            [% END %]
+
+            <tr class="act-donation">
+              <td class="act-description">
+                <div class="col-xs-12 act-select">
+                  <label for="form-donation">{{Donation}}</label>
+                </div>
+              </td>
+              <td class="act-amount col-xs-3 text-right">
+                <input name="donation" id="form-donation" type="text" class="form-control" value="[% donation %]" />
+              </td>
+              <td class="act-currency">
+                [% currency %]
+              </td>
+            </tr>
+
+            <tr id="total" style="">
+              <td class="act-description">
+                <div class="col-xs-12 act-select">
+                  <b><label for="form-donation">{{Total}}</label></b>
+                </div>
+              </td>
+              <td class="act-amount col-xs-3 text-right">
+                <b><span id="totalamount">0</span></b>
+              </td>
+              <td class="act-currency">
+                <b>[% currency %]</b>
+              </td>
+            </tr>
+          </table>
+
+          <div class="panel-footer text-right">
+            <input type="submit" name="purchase" class="btn btn-primary btn-lg" value="{{Buy now!}}"></input>
+          </div>
+        </div>
+      </form>
+
+      <p>
+       {{Please note that everything regarding your bank account and credit card number}}
+      </p>
+
+      [% file = "core/bank/${global.config.payment_type}" ; PROCESS $file %]
+    </div>
+  </div>
+[% END %]

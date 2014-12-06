@@ -1,0 +1,37 @@
+[% WRAPPER ui title = loc('Wiki - <node> History', node) %]
+  [% IF versions.size %]
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{{Version}}</th>
+          <th>{{Modified on}}</th>
+          <th>{{By}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        [% FOREACH v IN versions %]
+          <tr>
+            <td>
+              <a href="[% IF loop.first;
+                            make_uri('wiki', 'node', node);
+                          ELSE;
+                            make_uri('wiki', 'node', node, 'version', v.version);
+                          END %]">
+                [% v.version %]
+              </a>
+              [% UNLESS loop.first %]
+                <a href="[% make_uri('wiki', 'action', 'diff', 'node', node, 'r1', v.version, 'r2', pversion) %]">diff</a>
+              [% END %]
+            </td>
+            <td>[% date_format(v.last_modified, 'datetime_short') %]</td>
+            <td>[% user_info(v.user) %]</td>
+          </tr>
+          [% pversion = v.version %]
+        [% END %]
+      </tbody>
+    </table>
+    [% IF global.request.user.is_wiki_admin %]
+      <a class="btn btn-danger btn-lg" href="[% make_uri('wikiedit', 'action', 'delete', 'node', node) %]">{{Delete this page}}</a>
+    [% END %]
+  [% END %]
+[% END %]

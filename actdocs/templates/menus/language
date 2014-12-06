@@ -1,0 +1,11 @@
+[% IF global.languages.size %]
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-language"></i><span class="hidden-sm"> {{Language}}</span> <b class="caret"></b></a>
+  <ul class="dropdown-menu">
+    [% FOREACH lang = global.languages %]
+      [% WRAPPER menus/item %]
+        <a href="[% lang.uri %]">[% lang.name %]</a>
+      [% END %]
+    [% END %]
+  </ul>
+[% END %]

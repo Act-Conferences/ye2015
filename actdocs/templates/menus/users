@@ -1,0 +1,29 @@
+<!-- users menu -->
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    <i class="fa fa-users hidden-md hidden-lg"></i><span class="hidden-sm"> {{Users}}</span> <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href="[% make_uri('search') %]">{{Search}}</a></li>
+    <li><a href="[% make_uri('stats') %]">{{Statistics}}</a></li>
+
+    [% IF global.request.user.is_users_admin %]
+      <li class="divider"></li>
+      <li><a href="[% make_uri('export') %]">{{CSV export}} </a></li>
+      <li><a href="[% make_uri('confirm_attend') %]">{{Confirm Attendance}}</a></li>
+      <li><a href="[% make_uri('create') %]">{{Register a new user}}</a></li>
+    [% END %]
+
+    [% IF global.request.user.is_treasurer %]
+      <li class="divider"></li>
+      <li><a href="[% make_uri('payments') %]">{{Payments}}</a></li>
+      <li><a href="[% make_uri('csv/payments') %]">{{Payments}} (CSV)</a></li>
+      <li><a href="[% make_uri('csv/payment_items') %]">{{Payment Details}} (CSV)</a></li>
+    [% END %]
+
+    [% IF global.request.user.is_admin %]
+      <li class="divider"></li>
+      <li><a href="[% make_uri('rights') %]"> {{Rights management}} </a><li>
+    [% END %]
+  </ul>
+</li>

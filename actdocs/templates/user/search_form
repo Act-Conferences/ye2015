@@ -1,0 +1,59 @@
+[% WRAPPER ui title = loc('Search for users') %]
+
+<form method="POST" action="[% global.request.r.uri %]" id="user-search">
+  <div class="panel panel-default">
+    <div class="panel-body form-horizontal">
+      <div class="form-group">
+        <label for="user-name" class="col-md-3">{{Name}}</label>
+        <div class="col-md-9">
+          <input type="text" class="form-control" name="name" id="user-name" value="[% global.request.args.name %]" maxlength="60" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="user-city" class="col-md-3">{{City}}</label>
+        <div class="col-md-9">
+          <input type="text" class="form-control" name="city" id="user-city" value="[% global.request.args.city %]" maxlength="60" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="user-country" class="col-md-3">{{Country}}</label>
+        <div class="col-md-9">
+          <select name="country" id="user-country" class="form-control">
+             <option value=""[% ' selected="selected"' UNLESS global.request.args.country %]>{{Any}}</option>
+             [% FOREACH c = countries %]
+                <option value="[% c.iso %]"[% ' selected="selected"' IF global.request.args.country == c.iso %]>[% c.name %]</option>
+             [% END %]
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="user-group" class="col-md-3">{{Monger group}}</label>
+        <div class="col-md-9">
+          <select name="pm_group" id="user-group" class="form-control">
+             <option value=""[% ' selected="selected"' UNLESS global.request.args.pm_group %]>{{Any}}</option>
+             [% FOREACH g = pm_groups %]
+                <option value="[% g %]"[% ' selected="selected"' IF global.request.args.pm_group == g %]>[% g %]</option>
+             [% END %]
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer text-right">
+      <button type="submit" name="search" class="btn btn-primary btn-lg">{{Search}}</button>
+    </div>
+  </div>
+
+  [% PROCESS user/list IF users %]
+
+  [% IF prev %]
+    <input type="hidden" name="oprev" value="[% oprev %]" />
+    <input class="btn btn-primary" type="submit" name="prev"  value="&lt;&lt;" />
+  [% END %]
+  [% IF next %]
+    [% "&nbsp;&nbsp;&nbsp;" IF oprev %]
+    <input type="hidden" name="onext" value="[% onext %]" />
+    <input class="btn btn-primary" type="submit" name="next"  value="&gt;&gt;" />
+  [% END %]
+</form>
+
+[% END %]

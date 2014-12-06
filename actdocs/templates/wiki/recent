@@ -1,0 +1,40 @@
+[% WRAPPER ui title = loc("Wiki - Recent changes") %]
+  <form method="GET" action="[% make_uri('wiki') %]">
+    <input type="hidden" name="action" value="recent" />
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <ul class="nav nav-pills" role="tablist">
+          <li><a href="[% make_uri('wiki') %]">{{Home}}</a></li>
+
+          [% IF alltags.size %]
+            <li><a href="[% make_uri('wiki', 'action', 'tags') %]">{{Tags}}</a></li>
+          [% END %]
+
+          <li class="navbar-right form-inline">
+            <a>
+              {{Changes in last}}
+              <select class="form-control" name="period" size="1" onChange="submit();">
+                [% periods = [
+                  [ "1days",   loc("<n> day(s)",   1) ],
+                  [ "2days",   loc("<n> day(s)",   2) ],
+                  [ "3days",   loc("<n> day(s)",   3) ],
+                  [ "1weeks",  loc("<n> week(s)",  1) ],
+                  [ "2weeks",  loc("<n> week(s)",  2) ],
+                  [ "1months", loc("<n> month(s)", 1) ],
+                  [ "2months", loc("<n> month(s)", 2) ],
+                ] %]
+                [% FOREACH p IN periods %]
+                  <option value="[% p.0 %]"[% ' selected="selected"' IF period == p.0 %]>[% p.1 %]</option>
+                [% END %]
+              </select>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="panel-body">
+        [% PROCESS wiki/list %]
+      </div>
+    </div>
+  </form>
+[% END %]

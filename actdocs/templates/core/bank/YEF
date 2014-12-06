@@ -1,0 +1,55 @@
+<hr size="1" />
+<p>
+ <t>
+  <en>If you cannot use a credit card, or prefer to pay
+      via a money transfer to our bank, you can use the following
+      information:
+  </en>
+  <pt>Se n<C3><A3>o pode usar um cart<C3><A3>o de cr<C3><A9>dito, ou prefere pagar
+      usando transfer<C3><AA>ncia banc<C3><A1>ria, pode usar a seguinte informa<C3><A7><C3><A3>o:
+  </pt>
+  <fr>Si vous ne poss<C3><A9>dez pas de carte bleue, ou que vous pr<C3><A9>f<C3><A9>rez
+      payer par virement bancaire, vous pouvez toujours utiliser
+      les informations suivantes&nbsp;:
+  </fr>
+  <it>Se non potete usare una carta di credito, o preferite pagare con
+      bonifico bancario, potete usare questi dati:</it>
+  <de>
+  Wenn Sie nicht mit Kreditkarte bezahlen k<C3><B6>nnen/wollen, k<C3><B6>nnten folgende Informationen n<C3><BC>tzlich sein (sobald sie vorhanden sind...)
+  </de>
+  <hu>Amennyiben nincs bankk<C3><A1>rty<C3><A1>ja, vagy a bank<C3><A1>tutal<C3><A1>st prefer<C3><A1>lja,
+      a k<C3><B6>vetkez<C3><B5> inform<C3><A1>ci<C3><B3> hasznos lehet:
+  </hu>
+ </t>
+</p>
+
+ <table class="table table-bordered">
+  <tr>
+   <th align="left" valign="top"><t><en>Account owner</en><pt>T<C3><AD>tular da conta</pt><fr>Propri<C3><A9>taire du compte</fr><it>Titolare del conto</it><hu>Sz<C3><A1>mlatulajdonos</hu></t></th>
+   <td>YAPC Europe Foundation</td>
+  </tr><tr>
+   <th align="left" valign="top">IBAN</th>
+   <td>FR76 3006 6108 7600 0102 8120 151</td>
+  </tr><tr>
+   <th align="left" valign="top"><t><en>Bank identification code</en><pt>C<C3><B3>digo de identifica<C3><A7><C3><A3>o banc<C3><A1>rio</pt><fr>Code d'indentification bancaire</fr><it>Codice identificativo bancario</it><hu>Bank azonos<C3><AD>t<C3><B3> k<C3><B3>d</hu></t></th>
+   <td>CMCIFRPP</td>
+  </tr>
+ </table>
+
+<p>
+ <t>
+  <en>Please notify us if you decide to perform a bank transfer, so that we can
+      match you with the payment.</en>
+  <pt>Por favor, avise-nos se decidir realizar uma transfer<C3><AA>ncia banc<C3><A1>ria, de forma
+      a que poss<C3><A1>mos associar o pagamento com a pessoa em causa.</pt>
+  <fr>Merci de nous informer si vous faites un virement, afin que nous fassions
+      la liaison entre le virement et vous.
+  </fr>
+  <it>Vi preghiamo di informarci nel caso vogliate effettuare un
+      bonifico, cos<C3><AC> che possiamo associare ciascun pagamento con la persona
+      giusta.</it>
+  <hu>Ha bank<C3><A1>tutal<C3><A1>ssal szeretne fizetni, k<C3><A9>rj<C3><BC>k <C3><A9>rtes<C3><AD>tsen minket el<C3><B5>tte, hogy
+      beazonos<C3><AD>thassuk az <C3><A1>tutal<C3><A1>s<C3><A1>t.</hu>
+ </t>
+</p>
+

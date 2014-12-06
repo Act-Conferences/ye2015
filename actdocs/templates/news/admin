@@ -1,0 +1,35 @@
+[% WRAPPER ui title = loc("News Administration") %]
+  [% IF news.size %]
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{{Date}}</th>
+          <th>{{Title}}</th>
+          <th>{{Published}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        [% FOREACH n = news %]
+          <tr>
+            <td>[% date_format(n.datetime, 'datetime_short') %]</td>
+            <td>
+              [% IF global.config.languages.keys.size > 1 %]
+                [% FOREACH lang = n.items.keys.sort %]
+                <div>
+                  <b>[% global.config.languages.$lang.name %]</b>:
+                  <a href="[% make_uri('newsedit', 'news_id', n.news_id) %]">[% n.items.$lang.title %]</a>
+                </div>
+                [% END %]
+              [% ELSE %]
+                <a href="[% make_uri('newsedit', 'news_id', n.news_id) %]">[% n.items.$lang.title %]</a>
+              [% END %]
+            </td>
+            <td align="center">[% '<i class="fa fa-check"></i>' IF n.published %]</td>
+          </tr>
+        [% END %]
+      </tbody>
+    </table>
+  [% END %]
+
+  <a class="btn btn-primary btn-lg" href="[% make_uri('newsedit') %]">{{Create a new item}}</a>
+[% END %]

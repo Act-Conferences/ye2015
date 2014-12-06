@@ -1,0 +1,62 @@
+[% WRAPPER ui title = loc("Registration") %]
+
+[% USE date %]
+  [% IF date.now > end_date %]
+  <div class="alert alert-danger">
+   {{Sorry, this conference is over.}}
+  </div>
+  [% ELSE %]
+  <p>
+   {{Please create your user below.}}
+  </p>
+  [% MACRO user_info_x(user)
+     BLOCK;
+  %]<a href="[% user.most_recent_participation.url %]user/[% user.user_id %]">[% user_info_base(user) %]</a>[% END %]
+
+
+  [% PROCESS error
+     msgs = {
+       ERR_IDENTIFIER_EXISTS => loc("Identifier is already in use. Please choose another.", login),
+       ERR_EMAIL_EXISTS      => loc("The address is already registered.", email),
+       ERR_IDENTIFIER        => loc("Your identifier must contain at least 3 characters"),
+       ERR_FIRST_NAME        => loc("You must enter your first name"),
+       ERR_LAST_NAME         => loc("You must enter your last name"),
+       ERR_EMAIL             => loc("You must enter your email"),
+       ERR_COUNTRY           => loc("You must enter a country from the list"),
+       ERR_EMAIL_SYNTAX      => loc("Your email address looks bogus."),
+       ERR_DUPLICATE_EXISTS  => loc("Accounts with similar information already exist."),
+       ERR_TSHIRT            => loc("A valid T-shirt size is required."),
+    }
+  %]
+
+  [% IF duplicates.size ;
+     "<p>";
+     FOREACH u IN duplicates ;
+         "[" ; u.login ; "] ";
+         user_info_x(u);
+         IF ! u.email_hide ; " &lt;"; u.email; "&gt;" ; END ;
+         " ("; u.country_name;
+         ")<br />";
+     END;
+     "</p>";
+  %]
+  <p>[% loc("Use the links above to check if you are one of those.", make_uri('main')) %]</p>
+  [% END %]
+
+  <div class="col-md-6">
+    [% PROCESS 'user/forms/new_user' %]
+  </div>
+  <div class="col-md-6">
+
+  <p>[% loc("To register, you first need to create an account on the site.", make_uri('main')) %]</p>
+  <p>[% loc("The personal data that will be gathered here will be used to create", make_uri('search')) %]</p>
+  [% IF !global.config.registration_gratis %]
+    <p>{{Once you have an account, you'll be able to use our secure payment}}</p>
+    <p>{{We do not have access to your credit card information}}</p>
+  [% ELSE %]
+    <p>{{Once you have an account, you'll be able to register free of charge}}</p>
+  [% END %]
+  </div>
+[% END %]
+
+[% END %]

@@ -1,0 +1,9 @@
+[% IF global.conferences.present.merge( global.conferences.future ).size %]
+  <h3>{{Other Act conferences:}}</h3>
+  <ul class="list-group">
+    [% FOREACH c = global.conferences.present.merge( global.conferences.future ) %]
+      <li class="list-group-item"><i class="fa fa-chevron-right"></i> <a href="[% c.url %]">[% c.name %]</a></li>
+    [% END %]
+    <li class="list-group-item"><i class="fa fa-chevron-right"></i> <a href="http://act.mongueurs.net/conferences.html">{{Other conferences}}</a></li>
+  </ul>
+[% END %]

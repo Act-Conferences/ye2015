@@ -1,0 +1,43 @@
+[% WRAPPER ui title = loc("Your photo") %]
+<form method="POST" enctype="multipart/form-data">
+  <div class="col-md-offset-3 col-md-6">
+    [% IF error;
+         WRAPPER error_ui;
+           loc("Image couldn't be read. Please upload your picture in one of the following formats:");
+           formats.join(', ');
+         END;
+       END
+    %]
+
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">
+        [%- IF global.request.user.photo_name %]
+           <img class="img-thumbnail" src="[% photo_uri %]" border="0">
+        [%- ELSE %]
+           <img class="img-thumbnail" src="img/default-avatar.png" border="0">
+        [% END %]
+      </div>
+      <div class="panel-body">
+        <p>
+          {{This photo will probably end up on the conference who's who,}}
+          <tt>;-)</tt>
+        </p>
+        <input class="btn btn-default btn-lg" type="file" name="photo" size="40" />
+      </div>
+      <div class="panel-footer">
+        <div class="row">
+          <div class="col-lg-6 ">
+            [%- IF global.request.user.photo_name %]
+              <input type="submit" name="delete" class="btn btn-block btn-danger btn-lg" value="{{Delete Photo}}" />
+            [% END %]
+          </div>
+          <div class="col-lg-6">
+            <input type="submit" name="update" class="btn btn-block btn-primary btn-lg" value="{{Update Photo}}" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+[% END %]
+

@@ -1,0 +1,5 @@
+[% WRAPPER ui title = loc("Event submitted") %]
+  <div class="alert alert-success">
+   [% loc('Thanks, the event has been recorded as', make_uri_info('event', event_id ), title) %]
+  </div>
+[% END %]

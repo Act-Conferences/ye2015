@@ -1,11 +1,25 @@
-[% FILTER collapse %]
-[% PROCESS menus/user %]
-[% PROCESS menus/users %]
-[% PROCESS menus/news %]
-[% PROCESS menus/wiki %]
-[% PROCESS menus/talks %]
-[% PROCESS menus/events %]
-[% PROCESS menus/treasurer %]
-[% PROCESS menus/admin %]
-[% PROCESS menus/act_confs %]
-[% END %]
+<div class="container">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-menu-options">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="[% make_uri %]">[% global.conference.name %]</a>
+  </div>
+
+  <div class="collapse navbar-collapse" id="nav-menu-options">
+    <ul class="nav navbar-nav">
+      [% PROCESS menus/news %]
+      [% PROCESS menus/talks %]
+      [% PROCESS menus/users %]
+      [% PROCESS menus/wiki %]
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      [% PROCESS menus/language %]
+      [% PROCESS menus/user %]
+    </ul>
+  </div>
+</div>

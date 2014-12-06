@@ -1,0 +1,5 @@
+[%- SWITCH op %]
+[%- CASE 'insert' %]{{Talk inserted}}
+[%- CASE 'update' %]{{Talk updated}}
+[%- END -%]
+: [% talk.title %]
