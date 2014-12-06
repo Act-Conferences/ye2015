@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="[% global.request.language %]" xml:lang="[% global.request.language %]">
   <head>
-    <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+    <link rel="shortcut icon" type="image/png" href="[% make_uri_info('img', 'favicon.png') %]" />
+    <link rel="alternate" type="application/atom+xml" title="[% global.conference.name %]" href="[% global.request.base_url %][% make_uri_info( 'atom', global.request.language ) %].xml" />
     <link rel="stylesheet" type="text/css" href="[% make_uri_info('css', 'bootstrap.min.css') %]" />
     <link rel="stylesheet" type="text/css" href="[% make_uri_info('css', 'font-awesome.min.css') %]" />
     <link rel="stylesheet" type="text/css" href="[% make_uri_info('css', 'style.css') %]" />
@@ -23,8 +24,8 @@
         <div class="navbar navbar-default navbar-static-top" id="main-menu" role="navigation">
           [% PROCESS menu %]
 
-          <div class="container">
-            <div class="jumbotron">
+          <div class="jumbotron">
+            <div class="container">
               [% IF banner %]
                 [% PROCESS banner %]
               [% END %]
