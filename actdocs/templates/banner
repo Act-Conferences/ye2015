@@ -1,6 +1,6 @@
 <div class="media">
   <a class="media-left media-middle" href="#">
-    <img src="[% make_uri_info('img', 'favicon.png') %]" alt="Art+Engineering">
+    <img src="[% make_uri_info('img', 'yapc_granada.png') %]" alt="Art+Engineering">
   </a>
   <div class="media-body">
     <h1>[% global.conference.name %]</h1>
