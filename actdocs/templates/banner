@@ -1,5 +1,5 @@
 <div class="media">
-  <a class="media-left media-middle" href="#">
+  <a class="pull-left media-left media-middle" href="#">
     <img src="[% make_uri_info('img', 'yapc_granada.png') %]" alt="Art+Engineering">
   </a>
   <div class="media-body">
