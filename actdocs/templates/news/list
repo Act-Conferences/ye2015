@@ -1,6 +1,5 @@
 [% WRAPPER ui title = loc("News") %]
 [% IF news.size %]
-<div class="newsbox">
   [% FOREACH item = news %]
   <div class="news-entry">
     <div class="news-head">
