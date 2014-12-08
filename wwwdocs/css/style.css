@@ -23,9 +23,6 @@ body{
     width:100%;
     display:table-row;
 }
-#page-content {
-    padding: 40px 0;
-}
 #main-menu .jumbotron {
     background-color: transparent;
     padding-left: 0;

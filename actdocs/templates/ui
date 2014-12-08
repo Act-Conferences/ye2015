@@ -24,28 +24,21 @@
       <div id="page-body">
         <div class="navbar navbar-default navbar-static-top" id="main-menu" role="navigation">
           [% PROCESS menu %]
-
           [% IF banner %]
             [% PROCESS banner %]
-          [% ELSIF title %]
-          <div class="container">
-            <div class="jumbotron">
-                <h1>[% title %]</h1>
-            </div>
-          </div>
           [% END %]
         </div>
-
         <div class="container" id="page-content">
+          [% IF title %]
+          <h1 class="page-header">[% title %]</h1>
+          [% END %]
           <div class="col-xs-12">
             [% content %]
           </div>
         </div>
       </div>
-
       [% PROCESS footer %]
     </div>
-
     <script src="[% make_uri_info('js', 'bootstrap.min.js') %]"></script>
   </body>
 </html>
