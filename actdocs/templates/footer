@@ -4,12 +4,6 @@
       <div class="navbar navbar-default">
         <div class="container">
           <div class="row">
-            <div class="col-sm-6">
-              [% PROCESS footers/conferences %]
-            </div>
-            <div class="col-sm-6">
-              [% PROCESS footers/social %]
-            </div>
             <div class="col-sm-12">
               [% PROCESS footers/powered %]
             </div>
