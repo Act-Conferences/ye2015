@@ -3,7 +3,6 @@
 .green-logo { color: #5ba39a; }
 .blue-logo { color: #4e5d84; }
 
-.home-banner .media img { width:100%; }
 .home-banner .media-body { padding-left:20px; }
 .home-banner .logo { font-family: 'Coda', cursive; }
 .home-banner .logo h1 {
@@ -16,6 +15,14 @@
 .home-banner .dates {
   margin-top: 55px;
   margin-bottom:25px;
+}
+
+.news-head p {
+  font-size: 12px;
+  margin-top:-10px;
+}
+.news-content {
+  margin-bottom:40px;
 }
 
 @media (max-width: 500px) {

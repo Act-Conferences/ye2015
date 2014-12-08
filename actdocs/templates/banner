@@ -2,7 +2,7 @@
   <div class="container">
     <div class="media">
       <a class="media-left media-middle" href="#">
-        <img src="[% make_uri_info('img', 'yapc_logo.png') %]" alt="Art+Engineering">
+        <img src="[% make_uri_info('img', 'yapc_logo.png') %]" class="img-responsive" alt="Art+Engineering">
       </a>
       <div class="media-body">
         <div class="logo">

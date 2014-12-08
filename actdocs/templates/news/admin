@@ -1,11 +1,15 @@
-[% WRAPPER ui title = loc("News Administration") %]
+[% WRAPPER ui %]
+<h1 class="page-header">
+  <a class="btn btn-primary pull-right" href="[% make_uri('newsedit') %]">{{Create a new item}}</a>
+  [% loc("News Administration") %]
+</h1>
   [% IF news.size %]
-    <table class="table">
+    <table class="table table-striped">
       <thead>
         <tr>
           <th>{{Date}}</th>
           <th>{{Title}}</th>
-          <th>{{Published}}</th>
+          <th style="text-align:center;">{{Published}}</th>
         </tr>
       </thead>
       <tbody>
@@ -21,15 +25,14 @@
                 </div>
                 [% END %]
               [% ELSE %]
-                <a href="[% make_uri('newsedit', 'news_id', n.news_id) %]">[% n.items.$lang.title %]</a>
+                <a href="[% make_uri('newsedit', 'news_id', n.news_id) %]">[% n.items.en.title || 'No title' %]</a>
               [% END %]
             </td>
-            <td align="center">[% '<i class="fa fa-check"></i>' IF n.published %]</td>
+            <td style="text-align:center;">[% '<i class="fa fa-check"></i>' IF n.published %]</td>
           </tr>
         [% END %]
       </tbody>
     </table>
   [% END %]
 
-  <a class="btn btn-primary btn-lg" href="[% make_uri('newsedit') %]">{{Create a new item}}</a>
 [% END %]

@@ -6,25 +6,39 @@
    END;
  %]
 
-[% IF news.size %]
-<h2>Latest News</h2>
-[% FOREACH item = news %]
-<div class="news-entry">
- <h3 class="news-header">
-  <span class="news-date">[% date_format(item.datetime, 'date_short') %]</span>
-  <span class="news-title">[% item.title %]</span>
- </h3>
- <div class="news-text">
-  [% item.content %]
- </div>
+<div class="row">
+  <div class="col-md-8">
+    <h2 class="page-header">
+    [% IF more %]
+      <a href="[% make_uri('news') %]" class="btn btn-default pull-right">Older announcements <i class="fa fa-chevron-right"></i></a>
+    [% END %]
+      Latest News
+    </h2>
+    [% FOREACH item = news %]
+    <div class="news-entry">
+      <div class="news-head">
+        <h3>[% item.title %]</h3>
+        <p>By [% user_info(item.user) %] on [% date_format(item.datetime, 'datetime_short') %]</p>
+      </div>
+      <div class="news-content">[% item.content %]</div>
+    </div>
+    [% END %]
+   </div>
+   <div class="col-md-4">
+     <h2 class="page-header">Platinum sponsors</h2>
+     <div style="background:#eee; width:100%; height:80px; margin:5px 0;"></div>
+     <h2 class="page-header">Golden sponsors</h2>
+     <div style="display:inline-block; background:#eee; width:47%; height:80px; margin:5px 3% 5px 0;"></div>
+     <div style="display:inline-block; background:#eee; width:47%; height:80px; margin:5px 0;"></div>
+     <h2 class="page-header">Silver sponsors</h2>
+     <div style="display:inline-block; background:#eee; width:31%; height:80px; margin:5px 1% 5px 0;"></div>
+     <div style="display:inline-block; background:#eee; width:31%; height:80px; margin:5px 1% 5px 0;"></div>
+     <div style="display:inline-block; background:#eee; width:31%; height:80px; margin:5px 0;"></div>
+     <h2 class="page-header">Sponsors</h2>
+     <div style="display:inline-block; background:#eee; width:22%; height:60px; margin:5px 1% 5px 0;"></div>
+     <div style="display:inline-block; background:#eee; width:22%; height:60px; margin:5px 1% 5px 0;"></div>
+     <div style="display:inline-block; background:#eee; width:22%; height:60px; margin:5px 1% 5px 0;"></div>
+     <div style="display:inline-block; background:#eee; width:22%; height:60px; margin:5px 0"></div>
+   </div>
 </div>
-[% END %]
-[% END %]
-
-[% IF more %]
-<p>
- <a href="[% make_uri('news') %]" class="news-link">Older announcements</a>
-</p>
-[% END %]
-
 [% END %]
