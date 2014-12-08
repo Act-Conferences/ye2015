@@ -1,4 +1,5 @@
 <div id="page-footer">
+  [% PROCESS footers/conferences %]
   <div class="holder">
     <div class="frame">
       <div class="navbar navbar-default">

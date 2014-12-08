@@ -25,6 +25,20 @@
   margin-bottom:40px;
 }
 
+.row-more-act {
+  background:#e7e7e7; 
+  margin-top:30px;
+}
+.more-act-bar {
+  cursor:pointer;
+  color:#888;
+  margin:15px 0;
+}
+.more-act-bar:hover {
+  color:#666;
+}
+.more-act-on { display:none; }
+
 @media (max-width: 500px) {
   .home-banner .media img {
     display:none;
