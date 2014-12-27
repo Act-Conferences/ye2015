@@ -1,0 +1,75 @@
+[% WRAPPER ui title = loc('<conf name> Venue', global.conference.name) %]
+
+<p>
+ [% loc('There are n registered people', stats.users, stats.countries.size, stats.pm.size, stats.committed) %]
+</p>
+
+<p>
+ [% loc("You can have a look at country / mongers or cities statistics.", make_uri('stats'), make_uri('stats', 'show', 'cities')) %]
+</p>
+
+<p>
+ {{The number of committed users is listed between parentheses}}
+</p>
+<p>
+ {{Click on the various links to find the corresponding users!}}
+</p>
+
+<br /><br />
+
+[% SWITCH global.request.args.show %]
+  [% CASE [ 'cities', 'towns' ] %]
+    <center><h3>{{Cities}}</h3></center>
+    <br />
+    <!-- cities within countries -->
+    [% IF stats.towns.size == 0 %]
+      <div class="alert alert-error">{{No city information entered}}</div>
+    [% ELSE %]
+      <div class="alert alert-warning">{{Note: the country total is not always equal to the city total.}}</div>
+    [% END %]
+
+    [% FOREACH c = stats.countries %]
+      <div class="col-md-4">
+        <table class="table col-md-4">
+          <tr>
+            <th><a href="[% make_uri('search', 'country', c.iso) %]">[% c.name %]</a>
+            <th class="text-right"><span class="label label-success">[% c.count %]&nbsp;([% c.committed %])</span></th>
+          </tr>
+          [% FOREACH t = stats.towns.${c.iso} %]
+            <tr>
+              <td><a href="[% make_uri('search', 'town', t.name, 'country', c.iso) %]">[% t.name %]</a></td>
+              <td class="text-right"><span class="label label-default">[% t.count %]&nbsp;([% t.committed %])</span></td>
+            </tr>
+          [% END %]
+        </table>
+      </div>
+    [% END %]
+  
+  [% CASE DEFAULT %]
+    <center><h3>{{Countries}} / {{Monger groups}}</h3></center>
+    <br />
+    <div class="col-md-4 col-md-offset-2">
+      <table class="table">
+        <tr><th>{{Countries}}</th><th></th></tr>
+        [% FOREACH c = stats.countries %]
+          <tr>
+           <td><a href="[% make_uri('search', 'country', c.iso) %]">[% c.name %]</a></td>
+           <td class="text-right"><span class="label [% IF loop.count == 1 %]label-success[% ELSE %]label-default[% END%]">[% c.count %]&nbsp;([% c.committed %])</span></td>
+          </tr>
+        [% END %]
+      </table>
+    </div>  
+    
+    <div class="col-md-4">
+      <table class="table">
+        <tr><th>{{Monger groups}}</th><th></th></tr>
+        [% FOREACH pm = stats.pm %]
+          <tr>
+            <td><a href="[% make_uri('search', 'pm_group', pm.name) %]">[% pm.name %]</a></td>
+           <td class="text-right"><span class="label [% IF loop.count == 1 %]label-success[% ELSE %]label-default[% END%]">[% pm.count %]&nbsp;([% pm.committed %])</span></td>
+          </tr>
+        [% END %]
+      </table>
+    </div>
+  [% END %]
+[% END %]
