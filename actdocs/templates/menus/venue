@@ -3,7 +3,7 @@
     <i class="fa fa-bullhorn hidden-md hidden-lg"></i><span class="hidden-sm"> {{Venue & Inscriptions}}</span> <b class="caret"></b>
   </a>
   <ul class="dropdown-menu">
-    <li><a href="[% make_uri('venue') %]">{{Venue}}</a></li>
+    <li><a href="[% make_uri('venue') %]">Venue</a></li>
     <li><a href="[% make_uri('inscriptions') %]"> {{Inscriptions}}</a></li>
   </ul>
 </li>
