@@ -7,12 +7,12 @@
     <li><a href="[% make_uri('search') %]">{{Search}}</a></li>
     <li><a href="[% make_uri('stats') %]">{{Statistics}}</a></li>
 
-    [% IF global.request.user.is_users_admin %]
+    <!--[% IF global.request.user.is_users_admin %]-->
       <li class="divider"></li>
       <li><a href="[% make_uri('export') %]">{{CSV export}} </a></li>
       <li><a href="[% make_uri('confirm_attend') %]">{{Confirm Attendance}}</a></li>
       <li><a href="[% make_uri('create') %]">{{Register a new user}}</a></li>
-    [% END %]
+    <!--[% END %]—>
 
     [% IF global.request.user.is_treasurer %]
       <li class="divider"></li>
