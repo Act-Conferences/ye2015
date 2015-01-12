@@ -1,45 +1,3 @@
-Login+Register
-[% WRAPPER ui title = loc("Log in") %]
-  <div class="row">
-    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-      <form method="POST" action="[% action %]">
-          [% IF error;
-               WRAPPER error_ui;
-                 loc('Incorrect login or password');
-               END;
-             END
-          %]
-
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div class="col-md-10">
-                <div class="form-group">
-                  <label for="form-credential-0">{{Login}}</label>
-                  <input type="text" class="form-control" name="credential_0" id="form-credential-0" placeholder="{{ Specify your login or email address }}">
-                </div>
-                <div class="form-group">
-                  <label for="form-credential-1">{{Password}}</label>
-                  <input type="password" class="form-control" name="credential_1" id="form-credential-1" placeholder="{{ Password }}">
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input name="credential_2" id="form-credential-2" type="checkbox" value="Remember Me">{{Remember me on this computer}}
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="panel-footer text-right">
-              <button type="submit" name="join" class="btn btn-primary btn-lg">{{Submit}}</button>
-            </div>
-          </div>
-          <p>[% loc('Forgot your password?', make_uri('changepwd')) %]</p>
-
-          <p>
-            [% loc('This site uses cookies to authenticate logged in users.', domain) %]
-          </p>
-        <input type="hidden" name="destination" value="[% destination %]">
-      </form>
-
 [% WRAPPER ui title = loc("Registration") %]
 
 <p>{{Please create the user below.}}</p>
@@ -76,6 +34,4 @@ Login+Register
 [% PROCESS 'user/forms/new_user' %]
 
 [% END %]
-    </div>
-  </div>
-[% END %]
+
