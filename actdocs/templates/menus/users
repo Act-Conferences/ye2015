@@ -6,7 +6,7 @@
   <ul class="dropdown-menu">
     <li><a href="[% make_uri('search') %]">{{Search}}</a></li>
     <li><a href="[% make_uri('stats') %]">{{Statistics}}</a></li>
-    <li><a href="[% make_uri('add') %]">{{Register a new user}} - Add</a></li>
+    <li><a href="[% make_uri('create') %]">{{Register a new user}} - Create</a></li>
 
     [% IF global.request.user.is_users_admin %]
       <li class="divider"></li>

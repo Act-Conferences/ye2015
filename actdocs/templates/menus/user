@@ -7,11 +7,11 @@
       <b class="caret"></b>
     </a>
     <ul class="dropdown-menu">
-    [% UNLESS global.request.user.participation OR global.config.closed %]
+    <!--[% UNLESS global.request.user.participation OR global.config.closed %]-->
       [% WRAPPER menus/item %]
         <a href="[% make_uri('register') %]">{{Register}}</a>
       [% END %]
-    [% END %]
+    <!--[% END %]-->
     [% WRAPPER menus/item %]
       <a href="[% make_uri('main') %]">{{Edit profile}}</a>
     [% END %]
@@ -31,12 +31,12 @@
       [% WRAPPER menus/item %]
         <a href="[% make_uri('main') %]">{{Log in}}</a>
       [% END %]
-    [% UNLESS global.config.closed %]
+    <!--[% UNLESS global.config.closed %]-->
       <li class="divider"></li>
       [% WRAPPER menus/item %]
         <a href="[% make_uri('register') %]">{{New user}}</a>
       [% END %]
-    [% END %]
+    <!--[% END %]-->
     </ul>
   </li>
 [% END %]
