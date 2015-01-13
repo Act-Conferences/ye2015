@@ -1,37 +1,43 @@
-[% WRAPPER ui title = loc("Registration") %]
+[% WRAPPER ui title = loc("Log in") %]
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      <form method="POST" action="[% action %]">
+          [% IF error;
+               WRAPPER error_ui;
+                 loc('Incorrect login or password');
+               END;
+             END
+          %]
 
-<p>{{Please create the user below.}}</p>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="col-md-10">
+                <div class="form-group">
+                  <label for="form-credential-0">{{Login}}</label>
+                  <input type="text" class="form-control" name="credential_0" id="form-credential-0" placeholder="{{ Specify your login or email address }}">
+                </div>
+                <div class="form-group">
+                  <label for="form-credential-1">{{Password}}</label>
+                  <input type="password" class="form-control" name="credential_1" id="form-credential-1" placeholder="{{ Password }}">
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input name="credential_2" id="form-credential-2" type="checkbox" value="Remember Me">{{Remember me on this computer}}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="panel-footer text-right">
+              <button type="submit" name="join" class="btn btn-primary btn-lg">{{Submit}}</button>
+            </div>
+          </div>
+          <p>[% loc('Forgot your password?', make_uri('changepwd')) %]</p>
 
-[% PROCESS error
-   msgs = {
-     ERR_IDENTIFIER_EXISTS => loc("Identifier is already in use. Please choose another.", login),
-     ERR_EMAIL_EXISTS      => loc("The address is already registered.", email),
-     ERR_IDENTIFIER        => loc("Your identifier must contain at least 3 characters"),
-     ERR_FIRST_NAME        => loc("You must enter your first name"),
-     ERR_LAST_NAME         => loc("You must enter your last name"),
-     ERR_EMAIL             => loc("You must enter your email"),
-     ERR_COUNTRY           => loc("You must enter a country from the list"),
-     ERR_EMAIL_SYNTAX      => loc("Your email address looks bogus."),
-     ERR_DUPLICATE_EXISTS  => loc("Accounts with similar information already exist."),
-     ERR_TSHIRT            => loc("A valid T-shirt size is required."),
-  }
-%]
-
-[% IF duplicates.size %]
-<form method="POST" action="[% global.request.r.uri %]">
-<p>
- [% FOREACH u IN duplicates %]
-  <input type="radio" name="user_id" value="[% u.user_id %]" />
-  [ [% u.login %] ] [% user_info(u) %] &lt;[% u.email %]&gt; ([% u.country_name %])
-    <br />
- [% END %]
-</p>
-<p>{{Use the links above to check if any of those users is the one you want to}}</p>
-<input type="submit" name="register" value="{{Register}}" />
-</form>
+          <p>
+            [% loc('This site uses cookies to authenticate logged in users.', domain) %]
+          </p>
+        <input type="hidden" name="destination" value="[% destination %]">
+      </form>
+    </div>
+  </div>
 [% END %]
-
-[% PROCESS 'user/forms/new_user' %]
-
-[% END %]
-
