@@ -1,3 +1,8 @@
+/actdocs/static/index.html~
+/actdocs/templates/login~
+/actdocs/templates/menus/users~
+/actdocs/templates/menus/user~
+/actdocs/conf/act.ini~
 *.swp
 *.swo
 .svn
