@@ -10,6 +10,9 @@
           <li><a href="[% make_uri('wiki', 'action', 'help') %]">{{Help}}</a></li>
           <li><a><input class="input-link" type="submit" name="preview" value="{{Preview}}" /></a></li>
           <li><a><input class="input-link" type="submit" name="save" value="{{Save}}" /></a></li>
+          <li><a><input class="input-link" type="button" name="cancel" value="Cancel"
+ onclick="history.back()"/></a></li>
+
         </ul>
       </div>
 
