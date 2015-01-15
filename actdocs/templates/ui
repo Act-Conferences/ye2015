@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="[% make_uri_info('css', 'font-awesome.min.css') %]" />
     <link rel="stylesheet" type="text/css" href="[% make_uri_info('css', 'style.css') %]" />
     <link rel="stylesheet" type="text/css" href="[% make_uri_info('css', 'theme.css') %]" />
-    <link rel="stylesheet" type="text/css" href="[% make_uri_info('css', ‘ye2015.css') %]" />
+    <link rel="stylesheet" type="text/css" href="[% make_uri_info('css', 'ye2015.css') %]" />
 
     <!--
     <link rel="stylesheet" type="text/css" href="http://bootswatch.com/simplex/bootstrap.min.css" />
