@@ -3,7 +3,7 @@
     <input type="hidden" name="action" value="commit" />
     <input type="hidden" name="node" value="[% node %]" />
     <input type="hidden" name="checksum" value="[% checksum %]" />
-
+    <div class="wiki">
     <div class="panel panel-default">
       <div class="panel-heading">
         <ul class="nav nav-pills" role="tablist">
@@ -39,6 +39,7 @@
         <b>{{Tags:}}</b>
         <input type="text" class="form-control" name="tags" value="[% tags %]" size="51" maxlength="100" />
       </div>
+    </div>
     </div>
   </form>
 [% END %]

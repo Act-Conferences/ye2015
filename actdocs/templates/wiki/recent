@@ -1,6 +1,7 @@
 [% WRAPPER ui title = loc("Wiki - Recent changes") %]
   <form method="GET" action="[% make_uri('wiki') %]">
     <input type="hidden" name="action" value="recent" />
+    <div class="wiki">
     <div class="panel panel-default">
       <div class="panel-heading">
         <ul class="nav nav-pills" role="tablist">
@@ -35,6 +36,7 @@
       <div class="panel-body">
         [% PROCESS wiki/list %]
       </div>
+    </div>
     </div>
   </form>
 [% END %]
