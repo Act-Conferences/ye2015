@@ -1,0 +1,53 @@
+/* 
+    Created on : 15-ene-2015, 11:53:42
+    Author     : Victor M. Rivas Santos <vrivas@ujaen.es>
+*/
+.wiki  .panel-body {
+    border-width: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+.wiki  .panel {
+    border-width: 0px;
+    box-shadow: inherit;
+}
+.wiki .panel-default > .panel-heading {
+    background-color: inherit;
+    padding: 0px;
+    margin-top: -40px;
+    border-width: 0px;
+}
+
+.wiki .nav > li > a {
+    padding: 0px 10px 0px 0px;
+    font-size: 80%;
+}
+
+.wiki .nav-pills {
+    float: right;
+}
+
+.wiki .panel-footer {
+    margin-top: 50px;
+    font-size: 80%;
+    padding: 10px 0px 0px 0px;
+    background-color: inherit;
+}
+
+.wiki .panel-footer hr {
+    margin: 5px;
+}
+
+.wiki h1 {
+    font-size: 170%;
+}
+.wiki h2 {
+    font-size: 145%;
+}
+
+.wiki h3 {
+    font-size: 125%;
+}
+
+
+
