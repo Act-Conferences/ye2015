@@ -49,5 +49,20 @@
     font-size: 125%;
 }
 
+.wiki-options-top,
+.wiki-options-bottom
+{
+    font-size: 80%;
+}
+
+.wiki-options-top {
+    margin-top: -40px;
+}
+.wiki-options-bottom{
+    margin-top: +20px;
+}
+
+
+
 
 
