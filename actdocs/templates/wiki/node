@@ -1,7 +1,7 @@
 [% WRAPPER ui title = loc('Wiki - <node>', node) %]
 <div class="wiki">
   <div class="panel panel-default">
-    <div class="panel-heading">
+    <div class="wiki-options-top">
       <ul class="nav nav-pills" role="tablist">
         <li><a href="[% make_uri('wiki') %]">{{Home}}</a></li>
 
@@ -28,6 +28,30 @@
     <div class="panel-body">
       [% content %]
     </div>
+
+<div class="wiki-options-top">
+<ul class="nav nav-pills" role="tablist">
+<li><a href="[% make_uri('wiki') %]">{{Home}}</a></li>
+
+[% IF version %]
+[% IF global.request.user.is_wiki_admin %]
+<li><a href="[% make_uri('wikiedit', 'action', 'revert', 'node', node, 'version', version) %]">{{Revert to this version}}</a></li>
+[% END %]
+[% ELSE %]
+<li><a href="[% make_uri('wikiedit', 'action', 'edit', 'node', node) %]">{{Edit this page}}</a></li>
+[% END %]
+
+[% IF alltags.size %]
+<li><a href="[% make_uri('wiki', 'action', 'tags') %]">{{Tags}}</a></li>
+[% END %]
+
+<li><a href="[% make_uri('wiki', 'action', 'recent') %]">{{Recent changes}}</a></li>
+
+[% IF data.version %]
+<li><a href="[% make_uri('wiki', 'action', 'history', 'node', node) %]">{{History}}</a></li>
+[% END %]
+</ul>
+</div>
 
     <div class="panel-footer">
       <p>
