@@ -29,7 +29,7 @@
       [% content %]
     </div>
 
-<div class="wiki-options-top">
+<div class="wiki-options-bottom">
 <ul class="nav nav-pills" role="tablist">
 <li><a href="[% make_uri('wiki') %]">{{Home}}</a></li>
 
