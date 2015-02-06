@@ -1,0 +1,5 @@
+[% WRAPPER menus/item %]
+  <a href="/ye2015/wiki?node=Sponsor Us">
+    <i class="fa fa-edit hidden-md hidden-lg"></i><span class="hidden-sm"> Sponsor Us</span>
+  </a>
+[% END %]

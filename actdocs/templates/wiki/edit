@@ -3,13 +3,16 @@
     <input type="hidden" name="action" value="commit" />
     <input type="hidden" name="node" value="[% node %]" />
     <input type="hidden" name="checksum" value="[% checksum %]" />
-
+    <div class="wiki">
     <div class="panel panel-default">
-      <div class="panel-heading">
+      <div class="wiki-options-top">
         <ul class="nav nav-pills" role="tablist">
           <li><a href="[% make_uri('wiki', 'action', 'help') %]">{{Help}}</a></li>
           <li><a><input class="input-link" type="submit" name="preview" value="{{Preview}}" /></a></li>
           <li><a><input class="input-link" type="submit" name="save" value="{{Save}}" /></a></li>
+          <li><a><input class="input-link" type="button" name="cancel" value="Cancel"
+ onclick="history.back()"/></a></li>
+
         </ul>
       </div>
 
@@ -35,10 +38,22 @@
         [% END %]
       </div>
 
+<div class="wiki-options-bottom">
+<ul class="nav nav-pills" role="tablist">
+<li><a href="[% make_uri('wiki', 'action', 'help') %]">{{Help}}</a></li>
+<li><a><input class="input-link" type="submit" name="preview" value="{{Preview}}" /></a></li>
+<li><a><input class="input-link" type="submit" name="save" value="{{Save}}" /></a></li>
+<li><a><input class="input-link" type="button" name="cancel" value="Cancel"
+onclick="history.back()"/></a></li>
+
+</ul>
+</div>
+
       <div class="panel-footer form-inline">
         <b>{{Tags:}}</b>
         <input type="text" class="form-control" name="tags" value="[% tags %]" size="51" maxlength="100" />
       </div>
+    </div>
     </div>
   </form>
 [% END %]
