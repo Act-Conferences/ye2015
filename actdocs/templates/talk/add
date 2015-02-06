@@ -26,6 +26,7 @@
 
         <div class="col-md-12">
           [% IF talk_id %]
+            <input type="hidden" name="talk_id" value="[% talk_id %]" />
             <div class="form-group">
               <div class="col-xs-12 text-right">
                 <p>
@@ -111,8 +112,8 @@
           [% END %]
 
           <div class="form-group">
+            <label for="duration" class="col-sm-3 control-label">{{Duration}}</label>
             [% IF global.request.user.is_talks_admin %]
-              <label for="duration" class="col-sm-3 control-label">{{Duration}}</label>
               <div class="controls form-inline col-sm-9">
                 <input name="duration" class="form-control" value="[% duration == 'lightning' ? '' : duration %]" size="3" />
                 <input type="checkbox" name="is_lightning"[% ' checked' IF duration=='lightning' %] />
@@ -125,25 +126,16 @@
                 </p>
               </div>
             [% ELSE %]
-              <label for="duration" class="col-sm-3 control-label">{{Duration}}</label>
               <div class="col-sm-9">
-                [% IF talk_id %]
-                  [% IF duration == 'lightning' %]
+                <select class="form-control" name="duration">
+                 <option value=""[% ' selected="selected"' UNLESS duration %] />
+                 <option value="lightning"[% ' selected="selected"' IF lightning %]>
                     {{Lightning talk}}
-                  [% ELSE %]
-                    [% duration %] {{minutes}}
-                  [% END %]
-                [% ELSE %]
-                  <select class="form-control" name="duration">
-                   <option value=""[% ' selected="selected"' UNLESS duration %] />
-                   <option value="lightning"[% ' selected="selected"' IF lightning %]>
-                      {{Lightning talk}}
-                   </option>
-                   [% FOREACH d = global.config.talks_durations.keys.nsort %]
-                     <option value="[% d %]"[% ' selected="selected"' IF d == duration %]>[% d %] {{minutes}}</option>
-                   [% END %]
-                  </select>
-                [% END %]
+                 </option>
+                 [% FOREACH d = global.config.talks_durations.keys.nsort %]
+                   <option value="[% d %]"[% ' selected="selected"' IF d == duration %]>[% d %] {{minutes}}</option>
+                 [% END %]
+                </select>
               </div>
             [% END %]
           </div>
@@ -232,7 +224,7 @@
           <div class="form-group">
             <label for="comment" class="col-sm-3 control-label">{{Comments}}</label>
             <div class="col-sm-9">
-              <textarea class="form-control" name="comment" rows="6"></textarea>
+              <textarea class="form-control" name="comment" rows="6">[% comment | form_unescape %]</textarea>
             </div>
           </div>
 
