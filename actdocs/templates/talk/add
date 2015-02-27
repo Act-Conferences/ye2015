@@ -76,6 +76,7 @@
                   <span class="label label-success">{{confirmed}}</span>
                 [% ELSIF accepted %]
                   <span class="label label-info">{{Accepted}}</span> (not confirmed)
+                  <input type="checkbox" name="confirmed" /> {{confirmed}}<br />
                 [% ELSE %]
                   <span class="label label-warning">{{Pending}}</span>
                 [% END %]
