@@ -5,7 +5,7 @@
   <ul class="dropdown-menu">
     <li><a href="[% make_uri('talks') %]">{{Presentations}}</a></li>
     <li><a href="[% make_uri('favtalks') %]"> {{Favorite Talks}}</a></li>
-
+    <li><a href="/ye2015/call_for_instructors.html">Call for Instructors</a></li>
     [% IF global.config.talks_submissions_open OR global.request.user.is_talks_admin %]
       <li><a href="[% make_uri('newtalk') %]">{{Submit a talk proposal}}</a></li>
     [% END %]
