@@ -68,16 +68,22 @@
 }
 
 .sponsor-description {
-    float:left;
+    float: left;
     width: 35%;
 }
 
 .sponsor-iframe {
-    float:right;
+    float: right;
     width: 55%;
 }
 
-@media (max-width: 300px) {
+.sponsor-iframe iframe {
+    width: 100%;
+    height: 420px;
+    border-width: 0px;
+}
+
+@media screen and (max-width: 747px) {
     .sponsor-description {
         float: none;
         width: 100%;
