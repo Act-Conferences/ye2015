@@ -15,6 +15,7 @@
       [% PROCESS menus/news %]
       [% PROCESS menus/talks %]
       [% PROCESS menus/sponsorus %]
+      [% PROCESS menus/pricesanddates %]
       [% PROCESS menus/users %]
       [% PROCESS menus/wiki %]
     </ul>

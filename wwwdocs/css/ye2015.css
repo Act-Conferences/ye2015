@@ -62,7 +62,39 @@
     margin-top: +20px;
 }
 
+.sponsor-slogan {
+    font-style: italic;
+    text-align: center;
+}
 
+.sponsor-description {
+    float: left;
+    width: 35%;
+}
+
+.sponsor-iframe {
+    float: right;
+    width: 55%;
+}
+
+.sponsor-iframe iframe {
+    width: 100%;
+    height: 420px;
+    border-width: 0px;
+}
+
+@media screen and (max-width: 747px) {
+    .sponsor-description {
+        float: none;
+        width: 100%;
+    }
+    
+    .sponsor-iframe {
+        float: none;
+        width: 100%;
+    }
+    
+}
 
 
 
