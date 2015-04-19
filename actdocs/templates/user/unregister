@@ -5,10 +5,7 @@
     </h3>
     <br /><br />
     <form method="POST" action="[% global.request.r.uri %]">
-      <div class="visible-xs">
-        <input class="btn btn-lg btn-danger" type="submit" name="leave" value="[% loc('unregister').ucfirst %]" />
-      </div>
-      <input class="btn btn-lg btn-danger hidden-xs" type="submit" name="leave" value="[% loc('Unregister from <conference>', global.conference.name) %]" />
+      <input class="btn btn-lg btn-danger" type="submit" name="leave" value="[% loc('Unregister from <conference>', global.conference.name) %]" />
     </form>
   </div>
 [% END %]
