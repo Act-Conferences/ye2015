@@ -1,8 +1,9 @@
-[% WRAPPER menus/item %]
-<a href="/ye2015/out_sponsors.html">
-<i class="fa fa-edit hidden-md hidden-lg"></i><span class="hidden-sm"> Our sponsors</span>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+<i class="fa fa-bullhorn hidden-md hidden-lg"></i><span class="hidden-sm">Sponsors</span> <b class="caret"></b>
 </a>
-<a href="/ye2015/sponsor_us.html">
-<i class="fa fa-edit hidden-md hidden-lg"></i><span class="hidden-sm"> Sponsor Us</span>
-  </a>
-[% END %]
+<ul class="dropdown-menu">
+<li><a href="/ye2015/out_sponsors.html">Our Sponsors</a></li>
+<li><a href="/ye2015/sponsor_us.html">Sponsor Us</a></li>
+</ul>
+</li>
