@@ -1,0 +1,8 @@
+[% WRAPPER menus/item %]
+<a href="/ye2015/out_sponsors.html">
+<i class="fa fa-edit hidden-md hidden-lg"></i><span class="hidden-sm"> Our sponsors</span>
+</a>
+<a href="/ye2015/sponsor_us.html">
+<i class="fa fa-edit hidden-md hidden-lg"></i><span class="hidden-sm"> Sponsor Us</span>
+  </a>
+[% END %]

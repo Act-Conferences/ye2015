@@ -14,7 +14,7 @@
     <ul class="nav navbar-nav">
       [% PROCESS menus/news %]
       [% PROCESS menus/talks %]
-      [% PROCESS menus/sponsorus %]
+      [% PROCESS menus/sponsors %]
       [% PROCESS menus/pricesanddates %]
       [% PROCESS menus/users %]
       [% PROCESS menus/wiki %]
