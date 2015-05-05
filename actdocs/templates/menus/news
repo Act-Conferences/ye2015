@@ -1,19 +1,21 @@
-[% IF global.request.user.is_news_admin %]
-  <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-      <i class="fa fa-newspaper-o hidden-md hidden-lg"></i><span class="hidden-sm"> {{News}}</span> <b class="caret"></b>
-    </a>
-    <ul class="dropdown-menu">
-      [% WRAPPER menus/item %]
-        <a href="[% make_uri('news') %]">{{News}}</a>
-      [% END %]
-      [% WRAPPER menus/item %]
-        <a href="[% make_uri('newsadmin') %]">{{News Administration}}</a>
-      [% END %]
-    </ul>
-  </li>
-[% ELSE %]
-  [% WRAPPER menus/item %]
-    <a href="[% make_uri('news') %]"><i class="fa fa-newspaper-o hidden-md hidden-lg"></i><span class="hidden-sm"> {{News}}</span></a>
-  [% END %]
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+<i class="fa fa-newspaper-o hidden-md hidden-lg"></i><span class="hidden-sm"> {{News}}</span> <b class="caret"></b>
+</a>
+<ul class="dropdown-menu">
+[% WRAPPER menus/item %]
+<a href="[% make_uri('news') %]">{{News}}</a>
 [% END %]
+[% WRAPPER menus/item %]
+<a href="http://blogs.perl.org/users/yapceu/">Blog</a>
+[% END %]
+[% WRAPPER menus/item %]
+<a href="https://twitter.com/yapceu">Twitter</a>
+[% END %]
+[% IF global.request.user.is_news_admin %]
+[% WRAPPER menus/item %]
+<a href="[% make_uri('newsadmin') %]">{{News Administration}}</a>
+[% END %]
+[% END %]
+</ul>
+</li>
