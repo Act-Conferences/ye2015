@@ -12,12 +12,12 @@
     [% IF more %]
       <a href="[% make_uri('news') %]" class="btn btn-default pull-right">Older announcements <i class="fa fa-chevron-right"></i></a>
     [% END %]
-      Latest News
+      Latest News <a href="/ye2015/atom/en.xml"><img src="/ye2015/img/rss.png"></a>
     </h2>
     [% FOREACH item = news %]
     <div class="news-entry">
       <div class="news-head">
-        <h3>[% item.title %] <a href="/ye2015/atom/en.xml"><img src="/ye2015/img/rss.png"></a></h3>
+        <h3>[% item.title %] </h3>
         <p>By [% user_info(item.user) %] on [% date_format(item.datetime, 'datetime_short') %]</p>
       </div>
       <div class="news-content">[% item.content %]</div>
