@@ -1,4 +1,4 @@
-[% WRAPPER ui title = loc("News") %]
+[% WRAPPER ui title = loc("News") %]  <a href="/ye2015/atom/en.xml"><img src="/ye2015/img/rss.png"></a>
 [% IF news.size %]
   [% FOREACH item = news %]
   <div class="news-entry">
