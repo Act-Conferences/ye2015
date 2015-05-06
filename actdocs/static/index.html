@@ -17,7 +17,7 @@
     [% FOREACH item = news %]
     <div class="news-entry">
       <div class="news-head">
-        <h3>[% item.title %]</h3>
+        <h3>[% item.title %] <a href="/ye2015/atom/en.xml"><img src="/ye2015/img/rss.png"></a></h3>
         <p>By [% user_info(item.user) %] on [% date_format(item.datetime, 'datetime_short') %]</p>
       </div>
       <div class="news-content">[% item.content %]</div>
