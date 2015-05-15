@@ -159,4 +159,17 @@
       [% file = "core/bank/${global.config.payment_type}" ; PROCESS $file %]
     </div>
   </div>
+<script>
+// Victor Rivas, vrivas@ujaen.es, 15-May-2015
+// Disabling options once early bird date has expired
+/* Waiting for 16-may-2015
+var earlies=["price-course1-1", "price-registration-2", "price-course3-1"];
+for( p in earlies) {
+  $("#"+earlies[p])
+      .attr( "disabled", "true" )
+    .siblings( "label")
+      .css( "text-decoration", "line-through"); 
+}
+*/
+</Script>
 [% END %]
