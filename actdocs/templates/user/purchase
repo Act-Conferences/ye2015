@@ -165,10 +165,13 @@
 //  Waiting for 1-June-2015
 var earlies=["price-course1-1", "price-course3-1"];
 for( p in earlies) {
+ /*
   $("#"+earlies[p])
       .attr( "disabled", "true" )
     .siblings( "label")
       .css( "text-decoration", "line-through");
+  */
+  $("#"+earlies[p]).parents("tr").hide()
 }
 
 // Waiting for 23-June-2015
@@ -177,6 +180,6 @@ for( p in earlies) {
   .siblings( "label")
     .css( "text-decoration", "line-through");
 */
-
+ // $("#price-registration-2").parents("tr").hide()
 </Script>
 [% END %]
