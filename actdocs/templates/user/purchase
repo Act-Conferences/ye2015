@@ -164,22 +164,12 @@
 // Disabling options once early bird date has expired
 //  Waiting for 1-June-2015
 var earlies=["price-course1-1", "price-course3-1"];
-for( p in earlies) {
- /*
-  $("#"+earlies[p])
-      .attr( "disabled", "true" )
-    .siblings( "label")
-      .css( "text-decoration", "line-through");
-  */
-  $("#"+earlies[p]).parents("tr").hide()
-}
-
 // Waiting for 23-June-2015
-/*$("#price-registration-2")
-    .attr( "disabled", "true" )
-  .siblings( "label")
-    .css( "text-decoration", "line-through");
-*/
- // $("#price-registration-2").parents("tr").hide()
+//earlies.push( "#price-registration-2" );
+/* NEedless, as we remove these prices from act.ini
+for( p in earlies) {
+   $("#"+earlies[p]).parents("tr").hide()
+}*/
+
 </Script>
 [% END %]
