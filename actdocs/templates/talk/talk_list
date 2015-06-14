@@ -5,7 +5,7 @@
   <thead>
     <tr>
       <th>{{Speaker}}</th>
-      <th width="5%">My favs</th>
+      <th width="10%">My favs</th>
       <th>{{Talk title}}</th>
       <th>{{Duration}}</th>
 
@@ -37,7 +37,7 @@
           @desc Trying to make a star appearing close to the user's favorite talks. The star will also be a link to modify the choice
           -->
           [% IF global.request.user.has_registered %]
-          <a href="[%t.url_talk %]"
+          <a href="[% t.url_talk %]"
                    [% IF global.request.user.is_my_talk(t.talk_id) %]
                      title = "{{remove from personal schedule}}">
                      <img src="/ye2015/img/fav.png" width="20px">
