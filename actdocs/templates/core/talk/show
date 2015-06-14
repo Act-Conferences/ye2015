@@ -23,6 +23,8 @@
 
           [% END %]
 
+          <input type="hidden" name="talk_id" value="6229" />
+
           </form>
         </div>
 
