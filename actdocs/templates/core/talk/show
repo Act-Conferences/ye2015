@@ -7,7 +7,7 @@
     [% IF global.request.user.has_registered %]
 
         <div class="text-right">
-          <form method="POST" action="/ye2015/updatemytalks" />
+          <form method="POST" action="/ye2015/updatemytalks">
 
           [% IF global.request.user.is_my_talk(talk_id) %]
             <img src="/ye2015/img/fav.png" width="20px">
