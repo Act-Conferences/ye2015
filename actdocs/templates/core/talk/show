@@ -3,6 +3,33 @@
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-body">
+
+    [% IF global.request.user.has_registered %]
+
+        <div class="text-right">
+          <form method="POST" action="/ye2015/updatemytalks" />
+
+          [% IF global.request.user.is_my_talk(talk_id) %]
+            <img src="/ye2015/img/fav.png" width="20px">
+            <input type="submit" class="mytalks_submit btn btn-primary"       value="{{remove from personal schedule}}"
+            title = "{{remove from personal schedule}}"/>
+          [% ELSE %]
+          <img src="/ye2015/img/no-fav.png" width="20px">
+          <input type="submit" class="mytalks_submit btn btn-primary"       value="{{add to personal schedule}}"
+          title = "{{add to personal schedule}}"/>
+          <input type="hidden"
+                 name="mt-[% talk_id %]"
+                 value="[% talk_id %]"/>
+
+          [% END %]
+
+          </form>
+        </div>
+
+      [% END %]
+
+
+
       <div class="col-md-6 form-horizontal">
         <div class="form-group">
           <label class="col-xs-3 control-label">{{By}}:</label>
@@ -156,36 +183,8 @@
           </table>
         [% END %]
 
-        [% IF global.request.user.has_registered %]
-          <div class="text-right">
-            <form method="POST" action="[% make_uri('updatemytalks') %]" />
-            <input type="checkbox"
-                   name="mt-[% talk_id %]"
-                   value="[% talk_id %]"
-                   [% IF global.request.user.is_my_talk(talk_id) %]
-                     title = "{{remove from personal schedule}}"
-                     checked = "checked"
-                   [% ELSE %]
-                     title = "{{add to personal schedule}}"
-                   [% END %]
-            />
-            <span id="my-[% talk_id %]-text">{{add to personal schedule}}</span>
-            <input type="hidden" name="talk_id" value="[% talk_id %]" />
-            <input type="submit" class="mytalks_submit btn btn-primary" value="{{Submit}}" />
-            </form>
-          </div>
-        [% END %]
+
       </div>
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
