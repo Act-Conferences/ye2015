@@ -3,6 +3,7 @@
     <i class="fa fa-bullhorn hidden-md hidden-lg"></i><span class="hidden-sm"> Conference</span> <b class="caret"></b>
   </a>
   <ul class="dropdown-menu">
+    <li><a href="/ye2015/keynotes.html">Keynotes</a></li>
     <li><a href="/ye2015/venue.html">Venue</a></li>
     <li><a href="/ye2015/pricesanddates.html">Prices and Dates</a></li>
     <li><a href="/ye2015/wiki?node=Organizers">Organizers</a></li>
