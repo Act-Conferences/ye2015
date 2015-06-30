@@ -1,5 +1,5 @@
 [% IF 1 || global.conferences.present.merge( global.conferences.future ).size %]
-<div class="row row-more-act">
+<div class="row-more-act">
   <div class="container">
     <div class="col-sm-12">
       <h3 class="more-act-bar">
