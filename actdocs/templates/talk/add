@@ -66,10 +66,10 @@
             <label for="status" class="col-sm-3 control-label">{{Status}}</label>
             <div class="col-sm-9">
               [% IF global.request.user.is_talks_admin %]
-                <input type="checkbox" name="accepted"[% ' checked' IF accepted %] />
-                {{accepted}}<br />
-                <input type="checkbox" name="confirmed"[% ' checked' IF confirmed %] />
-                {{confirmed}}<br />
+                <label><input type="checkbox" name="accepted"[% ' checked' IF accepted %] />
+                {{accepted}}</label><br />
+                <label><input type="checkbox" name="confirmed"[% ' checked' IF confirmed %] />
+                {{confirmed}}</label><br />
               [% ELSE %]
                 <div class="form-control-static">
                 [% IF confirmed %]
@@ -117,8 +117,8 @@
             [% IF global.request.user.is_talks_admin %]
               <div class="controls form-inline col-sm-9">
                 <input name="duration" class="form-control" value="[% duration == 'lightning' ? '' : duration %]" size="3" />
-                <input type="checkbox" name="is_lightning"[% ' checked' IF duration=='lightning' %] />
-                {{Lightning talk}}
+                <label><input type="checkbox" name="is_lightning"[% ' checked' IF duration=='lightning' %] />
+                {{Lightning talk}}</label>
               </div>
               <div class="col-sm-offset-3 col-sm-9">
                 <p class="help-block">
