@@ -7,27 +7,23 @@
     [% IF global.request.user.has_registered %]
 
         <div class="text-right">
-          <form method="POST" action="/ye2015/updatemytalks">
-
+          <a href="/ye2015/talk/[% talk_id %]"
           [% IF global.request.user.is_my_talk(talk_id) %]
+              title="{{remove from personal schedule}}"
+              data-toggle="tooltip" data-placement="top"
+              class="talk-checkbox"
+              data-talkfav="1" data-talkid="[% talk_id %]"
+              data-titlerev="{{add to personal schedule}}">
             <img src="/ye2015/img/fav-3.png" width="20px">
-            <input type = "submit" class="mytalks_submit btn btn-primary"
-                  value = "{{remove from personal schedule}}"
-                  title = "{{remove from personal schedule}}"/>
           [% ELSE %]
-          <img src="/ye2015/img/no-fav-3.png" width="20px">
-          <input type = "submit" class="mytalks_submit btn btn-primary"
-                  value = "{{add to personal schedule}}"
-                  title = "{{add to personal schedule}}"/>
-          <input type = "hidden"
-                 name = "mt-[% talk_id %]"
-                 value = "[% talk_id %]"/>
-
+              title="{{add to personal schedule}}"
+              data-toggle="tooltip" data-placement="top"
+              class="talk-checkbox"
+              data-talkfav="0" data-talkid="[% talk_id %]"
+              data-titlerev="{{remove from personal schedule}}">
+            <img src="/ye2015/img/no-fav-3.png" width="20px">
           [% END %]
-
-          <input type="hidden" name="talk_id" value="[% talk_id %]" />
-
-          </form>
+          </a>
         </div>
 
       [% END %]
