@@ -1,6 +1,6 @@
 /* 
 
-  currently this file needed only because make_uri.
+  currently this file needed only because of make_uri.
 
 */
 

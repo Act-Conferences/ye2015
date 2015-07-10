@@ -38,6 +38,7 @@
           -->
           [% IF global.request.user.has_registered %]
           <a href="/ye2015/talk/[% t.talk_id %]"
+                   [%# For best toggling state, reversed test and tald_id stored in tag data- items: %]
                    [% IF global.request.user.is_my_talk(t.talk_id) %]
                      title="{{remove from personal schedule}}"
                      data-toggle="tooltip" data-placement="top"
