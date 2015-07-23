@@ -150,6 +150,11 @@
                 <span class="label label-warning">{{Pending}}</span>
               [% END %]
             </td>
+            [% IF t.confirmed %]
+            <td width="30">
+              [% PROCESS talk/fav_ajax onetalk = t %]
+            </td>
+            [% END %]
             <td>
             [% talk_link(t) %]
             </td>
@@ -206,6 +211,7 @@
       <table class="table">
         [% FOREACH t = mytalks %]
           <tr>
+            <td width="30">[% PROCESS talk/fav_ajax onetalk = t %]</td>
             <td>[% talk_link(t) %]</td>
           </tr>
         [% END %]

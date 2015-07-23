@@ -1,5 +1,5 @@
 [%
-  IF tag; 
+  IF tag;
     title = loc("List of talks tagged <tag>", tag);
   ELSE;
     title = loc("List of talks");

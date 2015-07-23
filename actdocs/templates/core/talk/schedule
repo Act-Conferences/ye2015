@@ -17,6 +17,7 @@
         <thead>
           <tr>
             <th>{{Speaker}}</th>
+            <th>&nbsp;</th>
             <th>{{Talk title}}</th>
             [% IF global.config.talks_languages %]<th>{{Language}}</th>[% END %]
             <th>{{Duration}}</th>
@@ -29,6 +30,8 @@
             <td>
              [% user_info(t.user) %]
             </td>
+
+            <td width="30">[% PROCESS talk/fav_ajax onetalk = t %]</td>
 
             <td>
               [% IF t.type == 'Act::Event' %]

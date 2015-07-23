@@ -1,0 +1,20 @@
+          [% IF global.request.user.has_registered %]
+          <a href="/ye2015/talk/[% onetalk.talk_id %]"
+                   [%# For best toggling state, reversed test and tald_id stored in tag data- items: %]
+                   [% IF global.request.user.is_my_talk(onetalk.talk_id) %]
+                     title="{{remove from personal schedule}}"
+                     data-toggle="tooltip" data-placement="top"
+                     class="talk-checkbox"
+                     data-talkfav="1" data-talkid="[% onetalk.talk_id %]"
+                     data-titlerev="{{add to personal schedule}}">
+                     <img src="/ye2015/img/fav-3.png" width="20px">
+                   [% ELSE %]
+                      title="{{add to personal schedule}}"
+                      data-toggle="tooltip" data-placement="top"
+                      class="talk-checkbox"
+                      data-talkfav="0" data-talkid="[% onetalk.talk_id %]"
+                      data-titlerev="{{remove from personal schedule}}">
+                      <img src="/ye2015/img/no-fav-3.png" width="20px">
+                  [% END %]
+          </a>
+          [% END %]
