@@ -186,5 +186,6 @@
 
       </div>
     </div>
+    <div class="panel-footer"><a href="[% make_uri('talks') %]">&laquo; {{List of talks}}</a></div>
   </div>
 </div>
