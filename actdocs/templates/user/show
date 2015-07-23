@@ -150,7 +150,7 @@
                 <span class="label label-warning">{{Pending}}</span>
               [% END %]
             </td>
-            [% IF t.confirmed %]
+            [% IF t.confirmed OR t.accepted %]
             <td width="30">
               [% PROCESS talk/fav_ajax onetalk = t %]
             </td>
