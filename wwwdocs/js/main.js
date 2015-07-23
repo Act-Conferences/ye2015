@@ -47,12 +47,16 @@ $(function () {
                     update_tooltip(cb);
                     cb.data('talkfav','0');
                     cb.find('img').attr('src', '/ye2015/img/no-fav-3.png');
+                    if(cb.data('needreload'))
+                        setTimeout(function(){ location.reload(); }, 300);
                 });
             } else {
                 save_inversion(cb.data('talkid'), 1, function(e){
                     update_tooltip(cb);
                     cb.data('talkfav','1');
                     cb.find('img').attr('src', '/ye2015/img/fav-3.png');
+                    if(cb.data('needreload'))
+                        setTimeout(function(){ location.reload(); }, 300);
                 });
             }
 
