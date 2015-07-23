@@ -36,26 +36,7 @@
           @date 14-Jun-2015
           @desc Trying to make a star appearing close to the user's favorite talks. The star will also be a link to modify the choice
           -->
-          [% IF global.request.user.has_registered %]
-          <a href="/ye2015/talk/[% t.talk_id %]"
-                   [%# For best toggling state, reversed test and tald_id stored in tag data- items: %]
-                   [% IF global.request.user.is_my_talk(t.talk_id) %]
-                     title="{{remove from personal schedule}}"
-                     data-toggle="tooltip" data-placement="top"
-                     class="talk-checkbox"
-                     data-talkfav="1" data-talkid="[% t.talk_id %]"
-                     data-titlerev="{{add to personal schedule}}">
-                     <img src="/ye2015/img/fav-3.png" width="20px">
-                   [% ELSE %]
-                      title="{{add to personal schedule}}"
-                      data-toggle="tooltip" data-placement="top"
-                      class="talk-checkbox"
-                      data-talkfav="0" data-talkid="[% t.talk_id %]"
-                      data-titlerev="{{remove from personal schedule}}">
-                      <img src="/ye2015/img/no-fav-3.png" width="20px">
-                  [% END %]
-          </a>
-          [% END %]
+          [% PROCESS talk/fav_ajax onetalk = t %]
         </td>
         <td>
           [% talk_link(t) %]
