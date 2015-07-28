@@ -1,7 +1,16 @@
 [% WRAPPER ui title = 'Venue' %]
 <div class="row">
+  <h3>Sections</h3>
 
-    <h2>Conference place</h2>
+  <ul class="task-list">
+    <li><a href="#location">Conference location</a></li>
+    <li><a href="#buslines">Bus lines</a></li>
+    <li><a href="#rooms">Rooms location</a></li>
+    <li><a href="#"></a></li>
+    <li><a href="#"></a></li>
+  </ul>
+
+    <h2 id="location">Conference location</h2>
     <p>
       YAPC::EU 2015 will be held in the <a href="http://fciencias.ugr.es/en/faculty" target="_blank">Faculty of Sciences (Facultad de Ciencias)</a>.
     </p>
@@ -15,5 +24,36 @@
     Faculty of Sciences is located at street <em>Fuente Nueva</em>, very close to street <em>Dr. Severo Ochoa</em> (just in case you have to ask someone). Its coordinates are: 37°10'45.6"N 3°36'33.7"W (or 37.179327, -3.609366)
     </p>
     <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3178.881644250179!2d-3.6095392!3d37.1792836!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0000000000000000%3A0xd36a1be3de643a01!2sUniversidad+de+Granada.+Facultad+de+Ciencias!5e0!3m2!1ses!2s!4v1432940457680" width="300" height="225" frameborder="0" style="border:0"></iframe>
+
+    <h2 id="buslines">Bus lines</h2>
+    <p>You have to buy your ticket at the bus itself, asking for it to the driver. The common price is 1.20&euro;.</p>
+    <p>Getting to the conference venue is quite easy using the following bus lines (getting off the bus at stops labelled as "Facultad de Ciencias" or "Severo Ochoa"):</p>
+    <ul class="task-list">
+      <li><a href="http://www.granadadirect.com/images/transporte/urbanos/lineas/linea-sn1.png">Line SN1</a></li>
+      <li><a href="http://www.granadadirect.com/images/transporte/urbanos/lineas/linea-sn3.png">Line SN3</a></li>
+      <li><a href="http://www.granadadirect.com/images/transporte/urbanos/lineas/linea-u2.png">Line U2</a></li>
+      <li><a href="http://www.granadadirect.com/images/transporte/urbanos/lineas/linea-u3.png">Line U3</a></li>
+      <li><a href="http://www.granadadirect.com/images/transporte/urbanos/lineas/linea-c6.png">Line C6</a></li>
+    </ul>
+    <p>You can also use the following ones (although you'll have to walk for 5 minutes in order to get to the conference place):</p>
+    <ul class="task-list">
+      <li><a href="http://www.granadadirect.com/images/transporte/urbanos/lineas/linea-sn2.png">Line SN2</a> (Get off at "Camino de Ronda 148" or "Camino de Ronda 157-153")</li>
+      <li><a href="http://www.granadadirect.com/images/transporte/urbanos/lineas/linea-sn4.png">Line SN4</a> (Get off at "Camino de Ronda 148" or "Camino de Ronda 153")</li>
+    </ul>
+
+    <p>You can get more information about bus lines in the following URLs: <a href="http://www.granadadirect.com/transporte/lineas-autobuses-granada/" target="_blank">http://www.granadadirect.com/transporte/lineas-autobuses-granada/</a> and <a href="http://www.transportesrober.com/" target="_blank">http://www.transportesrober.com/</a> (unfortunately, both of them in Spanish).
+
+
+      <h2 id="rooms">Rooms location</h2>
+      <p>
+        The following image shows the plane of Faculty of Sciences. We have marked the four rooms to be used during the conference:
+      </p>
+      <ul class="task-list">
+        <li><code>$yaps[0]</code> is the Aula Magna. Plenary talks will be held in this room</li>
+        <li><code>$yaps[1]</code> is room F1</li>
+        <li><code>$yaps[2]</code> is room F2</li>
+        <li><code>$yaps[3]</code> is Salón de Grados</li>
+      </ul>
+          <a href="/ye2015/img/plano-ciencias-rooms.png"><img src="/ye2015/img/plano-ciencias-rooms.png" style="align: center; width: 25%;"></a>
 </div>
  [% END %]
