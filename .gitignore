@@ -16,3 +16,7 @@
 .svn
 
 *.odg#
+
+*.xcf
+
+wwwdocs/img/plano-ciencias.jpg
