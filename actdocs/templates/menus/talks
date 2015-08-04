@@ -12,7 +12,6 @@
     <!-- Section for courses -->
     <li class="divider"></li>
     <li><a href="/ye2015/courses.html">Courses</a></li>
-    <li><a href="/ye2015/call_for_instructors.html">Call for Instructors</a></li>
 
     [% IF global.config.talks_show_schedule OR global.request.user.is_talks_admin %]
       <li class="divider"></li>
