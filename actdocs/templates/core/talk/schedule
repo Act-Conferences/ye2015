@@ -95,8 +95,7 @@
                 <th>
                   {{Time}}
                 </th>
-                [%-# tweak to get the right room order in schedule w/o messing act.ini %]
-                [% FOREACH r IN room.keys.sort.reverse %]
+                [% FOREACH r IN room.keys.sort %]
                   [% IF width.$r.$d %]
                     <th colspan="[% width.$r.$d %]">[% r == 'sidetrack' ? loc('room_sidetrack') : global.config.rooms.$r %]</th>
                   [% END %]
