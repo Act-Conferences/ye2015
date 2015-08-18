@@ -72,10 +72,8 @@
                 {{confirmed}}</label><br />
               [% ELSE %]
                 <div class="form-control-static">
-                [% IF confirmed %]
-                  <span class="label label-success">{{confirmed}}</span>
-                [% ELSIF accepted %]
-                  <span class="label label-info">{{Accepted}}</span> (not confirmed)
+                [% IF accepted %]
+                  <span class="label label-info">{{Accepted}}</span>
                   <input type="checkbox" name="confirmed"[% ' checked' IF confirmed %] /> {{confirmed}}<br />
                 [% ELSE %]
                   <span class="label label-warning">{{Pending}}</span>
